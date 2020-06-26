@@ -1,0 +1,104 @@
+/* Style Sheet */
+
+
+/*
+* #404ACC blue
+* #0d3b66 blue
+* #faf0ca creeam
+* #f4d35e yellow
+* #ee964b red golden
+* #f95738 red fire
+* #0a2463 blue
+*/
+
+#body {
+    height: 100vh;
+}
+
+.color-blue {
+    color: #003BEB !important;
+}
+
+.color-red {
+    color: #FA1616 !important;
+}
+
+.color-light-blue {
+    color: #3b6978 !important;
+}
+
+.color-cream {
+    color: #faf0ca !important;
+}
+
+.bg-cream {
+    background-color: #faf0ca !important;
+}
+
+.color-golden {
+    color: #f4d35e !important;
+}
+
+.bg-golden {
+    background-color: #f4d35e !important;
+}
+
+.border-golden {
+    border-color: #f4d35e !important;
+    border-width: 1px;
+}
+
+.color-yellow {
+    color: #ee964b !important;
+}
+
+.bg-yellow {
+    background-color: #ee964b !important;
+}
+
+.color-redfire {
+    color: #f95738 !important;
+}
+
+.bg-redfire {
+    background-color: #f95738 !important;
+}
+
+.border-redfire {
+    border-color: #f95738 !important;
+    border-width: 1px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #ee964b;
+}
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+/* Track */
+
+ ::-webkit-scrollbar-track {
+    background: rgb(241, 241, 241, .3);
+}
+
+
+/* Handle */
+
+ ::-webkit-scrollbar-thumb {
+    background: rgb(242, 242, 242, .6);
+}
+
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: rgb(10, 36, 99, .8);
+}
