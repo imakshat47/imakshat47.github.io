@@ -15,6 +15,12 @@
     height: 100vh;
 }
 
+.max-h-300 {
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 
 /* .color-blue {
     color: #003BEB !important;

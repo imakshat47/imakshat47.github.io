@@ -174,7 +174,7 @@ a {
 }
 
 a:hover {
-    color: #0d3b66;
+    color: #000;
     text-decoration: underline
 }
 
@@ -5583,6 +5583,7 @@ a.badge-dark:focus {
 .list-group-item-action:hover {
     z-index: 1;
     color: #495057;
+    font-weight: bolder;
     text-decoration: none;
     background-color: #f8f9fa
 }
