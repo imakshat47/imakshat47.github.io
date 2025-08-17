@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #fafafa;
+  color: #222;
+}
+
+/* NAVBAR */
+nav {
+  background: #1a1a1a;
+  color: white;
+  padding: 15px 30px;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  margin-left: 20px;
+}
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+nav ul li a:hover {
+  color: #ffdd57;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+.hero h1 {
+  font-size: 2.8rem;
+}
+.hero .highlight {
+  color: #ffdd57;
+}
+.btn, .btn-outline {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.btn {
+  background: #ffdd57;
+  color: #000;
+}
+.btn-outline {
+  border: 2px solid white;
+  color: white;
+}
+.btn:hover { opacity: 0.9; }
+.btn-outline:hover { background: white; color: #2575fc; }
+
+/* CONTAINER */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* SKILLS */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.grid span {
+  background: #2575fc;
+  color: white;
+  margin: 5px;
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+/* CARDS */
+.card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1a1a1a;
+  color: white;
+}
+footer a { color: #ffdd57; }
