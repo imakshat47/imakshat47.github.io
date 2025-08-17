@@ -121,10 +121,96 @@
         <div id="visitors">Loading visitor count...</div>
     </section>
 
+    <section id="github-stats" class="container">
+        <h2>📈 GitHub Stats Trends</h2>
+        <canvas id="statsChart" width="600" height="300"></canvas>
+    </section>
+
+
     <!-- FOOTER -->
     <footer>
         <p>⭐ Built by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
     </footer>
+
+
+    <!-- Load Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function loadStats() {
+            try {
+                const res = await fetch("api/stats-history.json");
+                const data = await res.json();
+
+                // Extract metrics
+                const dates = data.map(d => d.date);
+                const stars = data.map(d => d.stars);
+                const followers = data.map(d => d.followers);
+                const repos = data.map(d => d.public_repos);
+                const commits = data.map(d => d.commits_this_year);
+
+                // Build Chart
+                const ctx = document.getElementById("statsChart").getContext("2d");
+                new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: dates,
+                        datasets: [
+                            {
+                                label: "⭐ Stars",
+                                data: stars,
+                                borderColor: "gold",
+                                backgroundColor: "rgba(255, 215, 0, 0.2)",
+                                fill: true
+                            },
+                            {
+                                label: "👥 Followers",
+                                data: followers,
+                                borderColor: "dodgerblue",
+                                backgroundColor: "rgba(30, 144, 255, 0.2)",
+                                fill: true
+                            },
+                            {
+                                label: "📦 Public Repos",
+                                data: repos,
+                                borderColor: "seagreen",
+                                backgroundColor: "rgba(46, 139, 87, 0.2)",
+                                fill: true
+                            },
+                            {
+                                label: "📊 Commits (This Year)",
+                                data: commits,
+                                borderColor: "crimson",
+                                backgroundColor: "rgba(220, 20, 60, 0.2)",
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: "GitHub Contribution Trends",
+                                font: { size: 18 }
+                            },
+                            legend: {
+                                position: "bottom"
+                            }
+                        },
+                        scales: {
+                            x: { title: { display: true, text: "Date" } },
+                            y: { title: { display: true, text: "Count" }, beginAtZero: true }
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error("Error loading stats:", err);
+            }
+        }
+
+        loadStats();
+    </script>
+
 
     <!-- JS: GitHub Stats -->
     <script>
