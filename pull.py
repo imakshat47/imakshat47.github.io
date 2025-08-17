@@ -9,7 +9,7 @@ headers = {"Authorization": f"Bearer {token}"} if token else {}
 
 api_dir = pathlib.Path("api")
 api_dir.mkdir(exist_ok=True)
-
+print_out_msg = ""
 # ===========================================
 # 1. Visitor Counter
 # ===========================================
@@ -28,6 +28,7 @@ visitors["last_visit"] = datetime.now(UTC).isoformat()
 
 with open(visitor_file, "w") as f:
     json.dump(visitors, f, indent=2)
+    print_out_msg += "Visitor "
 
 # ===========================================
 # 2. GitHub Stats Snapshot
@@ -70,6 +71,7 @@ stats = {
 
 with open(api_dir / "stats.json", "w") as f:
     json.dump(stats, f, indent=2)
+    print_out_msg += "Stats "
 
 # ===========================================
 # 3. Append to Stats History
@@ -93,6 +95,7 @@ if not any(entry.get("date") == snapshot["date"] for entry in history):
 
 with open(history_file, "w") as f:
     json.dump(history, f, indent=2)
+    print_out_msg += "History "
 
 # ===========================================
 # 4. Resume Auto-Update
@@ -111,5 +114,6 @@ for file in sorted(resume_dir.glob("*.pdf")):
 
 with open(resume_list_file, "w") as f:
     json.dump(resumes, f, indent=2)
+    print_out_msg += "Resume "
 
-print("✅ Visitors, Stats, History, and Resume list updated!")
+print(f"✅ {print_out_msg} list updated!")
