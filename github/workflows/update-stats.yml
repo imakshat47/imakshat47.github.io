@@ -1,4 +1,4 @@
-name: Update GitHub Stats
+name: Update Portfolio Data
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:       # manual trigger
 
 jobs:
-  update-stats:
+  update-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -20,22 +20,41 @@ jobs:
       - name: Install requests
         run: pip install requests
 
-      - name: Update stats
+      - name: Update stats & visitors
         run: |
           python3 << 'EOF'
-          import requests, json, os, datetime
+          import requests, json, os, datetime, pathlib
 
           token = os.getenv("GH_TOKEN")
           headers = {"Authorization": f"Bearer {token}"}
 
-          # 1. Basic user stats
+          # ===============================
+          # 1. VISITOR COUNTER
+          # ===============================
+          visitor_file = pathlib.Path("api/visitors.json")
+          visitor_file.parent.mkdir(exist_ok=True)
+          if visitor_file.exists():
+              data = json.load(visitor_file.open())
+          else:
+              data = {"count": 0, "last_visit": None}
+
+          data["count"] += 1
+          data["last_visit"] = datetime.datetime.utcnow().isoformat() + "Z"
+
+          with open(visitor_file, "w") as f:
+              json.dump(data, f, indent=2)
+
+          # ===============================
+          # 2. GITHUB STATS
+          # ===============================
+          # Basic user stats
           user = requests.get("https://api.github.com/users/imakshat47", headers=headers).json()
 
-          # 2. Repo stars
+          # Repo stars
           repos = requests.get("https://api.github.com/users/imakshat47/repos?per_page=100", headers=headers).json()
-          stars = sum(r.get("stargazers_count", 0) for r in repos)
+          stars = sum(r.get("stargazers_count", 0) for r in repos if isinstance(r, dict))
 
-          # 3. Commit count (GraphQL query)
+          # Commits this year via GraphQL
           query = """
           {
             viewer {
@@ -50,7 +69,6 @@ jobs:
           r = requests.post("https://api.github.com/graphql", json={"query": query}, headers=headers).json()
           commits = r["data"]["viewer"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
 
-          # 4. Save stats
           stats = {
               "public_repos": user.get("public_repos", 0),
               "stars": stars,
@@ -64,7 +82,6 @@ jobs:
               "last_updated": datetime.datetime.utcnow().isoformat() + "Z"
           }
 
-          os.makedirs("api", exist_ok=True)
           with open("api/stats.json", "w") as f:
               json.dump(stats, f, indent=2)
 
@@ -74,8 +91,8 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add api/stats.json
-          git commit -m "🔄 Auto-update stats [skip ci]" || echo "No changes"
+          git add api/stats.json api/visitors.json
+          git commit -m "🔄 Auto-update stats & visitors [skip ci]" || echo "No changes"
           git push
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
