@@ -94,4 +94,22 @@ if not any(entry.get("date") == snapshot["date"] for entry in history):
 with open(history_file, "w") as f:
     json.dump(history, f, indent=2)
 
-print("✅ Visitors, Stats, and History updated!")
+# ===========================================
+# 4. Resume Auto-Update
+# ===========================================
+resume_dir = pathlib.Path("resume")
+resume_dir.mkdir(exist_ok=True)
+resume_list_file = resume_dir / "resume-list.json"
+
+resumes = []
+for file in sorted(resume_dir.glob("*.pdf")):
+    resumes.append({
+        "name": file.stem.replace("_", " ").title(),
+        "file": file.name,
+        "last_modified": datetime.fromtimestamp(file.stat().st_mtime, UTC).isoformat()
+    })
+
+with open(resume_list_file, "w") as f:
+    json.dump(resumes, f, indent=2)
+
+print("✅ Visitors, Stats, History, and Resume list updated!")

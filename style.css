@@ -1,106 +1,282 @@
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #fafafa;
-  color: #222;
+/* ================================
+   Global Styles
+================================ */
+:root {
+  --primary: #2563eb;
+  --secondary: #9333ea;
+  --bg: #f9fafb;
+  --text: #111;
+  --card-bg: #fff;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* NAVBAR */
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+  line-height: 1.6;
+}
+
+/* ================================
+   Navbar
+================================ */
 nav {
-  background: #1a1a1a;
-  color: white;
-  padding: 15px 30px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  padding: 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
 }
-.nav-container {
+
+nav .nav-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  color: #fff;
 }
+
+nav .logo {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
 nav ul {
   list-style: none;
   display: flex;
+  gap: 18px;
   margin: 0;
-  padding: 0;
 }
-nav ul li {
-  margin-left: 20px;
-}
+
 nav ul li a {
-  color: white;
+  color: #fff;
   text-decoration: none;
+  font-weight: 500;
   transition: color 0.3s;
 }
+
 nav ul li a:hover {
-  color: #ffdd57;
+  color: gold;
 }
 
-/* HERO */
+/* ================================
+   Hero Section
+================================ */
 .hero {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
-  color: white;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 80px 20px;
+  background: linear-gradient(135deg, #2563eb20, #9333ea20);
+  animation: fadeIn 2s ease-in-out;
 }
+
 .hero h1 {
   font-size: 2.8rem;
+  margin-bottom: 15px;
 }
+
 .hero .highlight {
-  color: #ffdd57;
+  color: var(--secondary);
+  animation: glow 2s infinite alternate;
 }
-.btn, .btn-outline {
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+.btn,
+.btn-outline {
   display: inline-block;
   margin: 10px;
-  padding: 12px 20px;
+  padding: 12px 18px;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: bold;
+  transition: all 0.3s ease;
 }
+
 .btn {
-  background: #ffdd57;
-  color: #000;
+  background: var(--primary);
+  color: #fff;
 }
+
+.btn:hover {
+  transform: scale(1.05);
+  background: #1d4ed8;
+}
+
 .btn-outline {
-  border: 2px solid white;
-  color: white;
-}
-.btn:hover { opacity: 0.9; }
-.btn-outline:hover { background: white; color: #2575fc; }
-
-/* CONTAINER */
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 40px 20px;
+  border: 2px solid var(--primary);
+  color: var(--primary);
 }
 
-/* SKILLS */
+.btn-outline:hover {
+  transform: scale(1.05);
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ================================
+   Sections
+================================ */
+section.container {
+  max-width: 950px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+h2 {
+  border-bottom: 2px solid var(--primary);
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+  animation: slideIn 1s ease;
+}
+
+/* Grid for Skills */
 .grid {
   display: flex;
   flex-wrap: wrap;
+  gap: 12px;
 }
+
 .grid span {
-  background: #2575fc;
-  color: white;
-  margin: 5px;
-  padding: 8px 14px;
-  border-radius: 5px;
-  font-size: 0.9rem;
+  padding: 10px 14px;
+  background: var(--card-bg);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
 }
 
-/* CARDS */
+.grid span:hover {
+  transform: translateY(-6px) scale(1.05);
+  background: #f3f4f6;
+}
+
+/* Experience & Project Cards */
 .card {
-  background: white;
+  background: var(--card-bg);
   padding: 20px;
+  border-radius: 10px;
   margin: 15px 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
 }
 
-/* FOOTER */
+.card:hover {
+  transform: translateY(-8px);
+}
+
+/* ================================
+   Stats & Visitors
+================================ */
+#stats,
+#visitors {
+  margin-top: 20px;
+  font-size: 1rem;
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+}
+
+.stat-item {
+  margin: 8px 0;
+  font-size: 1.05rem;
+}
+
+/* ================================
+   Footer
+================================ */
 footer {
   text-align: center;
   padding: 20px;
-  background: #1a1a1a;
+  background: #111;
+  color: #eee;
+  margin-top: 50px;
+  font-size: 0.95rem;
+}
+
+footer a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ================================
+   Animations
+================================ */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #9333ea;
+  }
+  to {
+    text-shadow: 0 0 20px #9333ea, 0 0 30px #9333ea;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Resume Page Styling */
+.resume-box {
+  margin: 20px 0;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  animation: fadeIn 1.5s ease;
+}
+
+.resume-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Global links */
+a {
+  color: white;
+  text-decoration: none;   /* remove underline */
+  transition: 0.3s;
+}
+
+a:hover {
+  color: #ffcc00;
+  text-decoration: none;   /* no underline on hover */
+}
+
+select {
+  padding: 8px 12px;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  background: #222;
   color: white;
 }
-footer a { color: #ffdd57; }

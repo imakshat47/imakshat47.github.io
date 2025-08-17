@@ -2,265 +2,359 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Akshat Kumar | Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        #stats,
-        #visitors {
-            margin-top: 20px;
-            font-size: 1rem;
-            background: #fff;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshat Kumar | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #9333ea;
+      --bg: #f9fafb;
+      --card-bg: #fff;
+    }
 
-        .stat-item {
-            margin: 6px 0;
-        }
-    </style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: #111;
+      scroll-behavior: smooth;
+    }
+
+    nav {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    nav .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: gold;
+    }
+
+    .hero {
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #2563eb20, #9333ea20);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .highlight {
+      color: var(--secondary);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 5px #9333ea;
+      }
+
+      to {
+        text-shadow: 0 0 20px #9333ea, 0 0 30px #9333ea;
+      }
+    }
+
+    .btn,
+    .btn-outline {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: #1d4ed8;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      transform: scale(1.05);
+      background: var(--primary);
+      color: #fff;
+    }
+
+    section.container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+      animation: slideIn 1s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-20px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .grid span {
+      padding: 8px 12px;
+      background: var(--card-bg);
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .grid span:hover {
+      transform: translateY(-5px);
+      background: #f3f4f6;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    #stats,
+    #visitors {
+      margin-top: 20px;
+      font-size: 1rem;
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: #eee;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-container">
+      <h2 class="logo">Akshat Kumar</h2>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</</li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="resume.html">Resume</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="nav-container">
-            <h2 class="logo">Akshat Kumar</h2>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#achievements">Achievements</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-        </div>
-    </nav>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-text">
+      <h1>👋 Hi, I'm <span class="highlight">Akshat Kumar</span></h1>
+      <p>M.Tech CSE (Analytics) @ NIT Delhi | Data Engineer | Cloud & AI Enthusiast</p>
+      <a class="btn" href="resume.html">📄 View My Resume</a>
+      <a class="btn-outline" href="mailto:242211003@nitdelhi.ac.in">✉️ Contact Me</a>
+    </div>
+  </header>
 
-    <!-- HERO -->
-    <header class="hero">
-        <div class="hero-text">
-            <h1>👋 Hi, I'm <span class="highlight">Akshat Kumar</span></h1>
-            <p>M.Tech CSE (Analytics) @ NIT Delhi | Data Engineer | Cloud & AI Enthusiast</p>
-            <a class="btn" href="resume.html">📄 View My Resume</a>
-            <a class="btn-outline" href="mailto:242211003@nitdelhi.ac.in">✉️ Contact Me</a>
-        </div>
-    </header>
+  <!-- ABOUT -->
+  <section id="about" class="container">
+    <h2>🚀 About Me</h2>
+    <p>
+      I’m a <b>Data Engineer</b> with expertise in <b>Cloud, Data Governance, and AI-driven systems</b>.  
+      Currently pursuing <b>M.Tech in Computer Science (Analytics)</b> at NIT Delhi after 3 years at Accenture as a  
+      <b>Data Engineering Analyst</b>. Passionate about building <b>scalable, automated, and intelligent solutions</b>.
+    </p>
+  </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="container">
-        <h2>🚀 About Me</h2>
-        <p>
-            I’m a <b>Data Engineer</b> passionate about cloud systems, automation,
-            and <b>AI-driven solutions</b>. Currently pursuing
-            <b>M.Tech in Computer Science (Analytics)</b> at NIT Delhi after 3 years
-            at Accenture as a <b>Data Governance Analyst</b>.
-        </p>
-    </section>
+  <!-- SKILLS -->
+  <section id="skills" class="container">
+    <h2>🛠️ Skills</h2>
+    <div class="grid">
+      <span>Python</span><span>C++</span><span>SQL</span><span>JavaScript</span>
+      <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span>
+    </div>
+  </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="container">
-        <h2>🛠️ Skills</h2>
-        <div class="grid">
-            <span>Python</span><span>C++</span><span>SQL</span><span>JavaScript</span>
-            <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span>
-        </div>
-    </section>
+  <!-- EXPERIENCE -->
+  <section id="experience" class="container">
+    <h2>💼 Experience</h2>
+    <div class="card">
+      <h3>Accenture (2021–2024)</h3>
+      <p>Data Governance & ML-driven analytics for enterprise systems, optimizing pipelines and compliance.</p>
+    </div>
+    <div class="card">
+      <h3>NexGen Innovators (2021)</h3>
+      <p>Built Laravel-based CMS for content delivery and optimized backend performance.</p>
+    </div>
+    <div class="card">
+      <h3>IEEE Chairperson (2020–2021)</h3>
+      <p>Organized events, hackathons, and workshops to foster tech innovation.</p>
+    </div>
+  </section>
 
-    <!-- EXPERIENCE -->
-    <section id="experience" class="container">
-        <h2>💼 Experience</h2>
-        <div class="card">
-            <h3>Accenture (2021–2024)</h3>
-            <p>Data Engineering & Governance Analyst – Delivered ML-based predictive analytics, optimized data
-                pipelines, and ensured compliance for enterprise data systems.</p>
-        </div>
-        <div class="card">
-            <h3>NexGen Innovators (2021)</h3>
-            <p>Web Developer – Co-created a Laravel-based CMS, optimized performance, and enabled dynamic content
-                delivery.</p>
-        </div>
-    </section>
+  <!-- PROJECTS -->
+  <section id="projects" class="container">
+    <h2>📌 Projects</h2>
+    <div class="card">
+      <h3>NexFinCo – Credit Management</h3>
+      <p>Big Data + Polyglot Persistence for credit scoring and financial risk analysis.</p>
+    </div>
+    <div class="card">
+      <h3>Multi-Lingual Code-Mixed Translation</h3>
+      <p>NLP system for translating mixed-language text (Published at ICCICA 2021).</p>
+    </div>
+  </section>
 
-    <!-- PROJECTS -->
-    <section id="projects" class="container">
-        <h2>📌 Projects</h2>
-        <div class="card">
-            <h3>NexFinCo – Credit Management Platform</h3>
-            <p>Big Data + Polyglot Persistence for credit scoring and financial risk analysis.</p>
-        </div>
-        <div class="card">
-            <h3>Multi-Lingual Code-Mixed Machine Translation</h3>
-            <p>NLP system for translating mixed-language text. Published at ICCICA 2021.</p>
-        </div>
-    </section>
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements" class="container">
+    <h2>🏆 Achievements</h2>
+    <ul>
+      <li>Google Cloud ML Engineer (2024)</li>
+      <li>AWS Cloud Practitioner (2022)</li>
+      <li>Azure Fundamentals (2023)</li>
+      <li>GATE Qualified – 2024, 2025</li>
+    </ul>
+  </section>
 
-    <!-- ACHIEVEMENTS -->
-    <section id="achievements" class="container">
-        <h2>🏆 Achievements</h2>
-        <ul>
-            <li>Google Cloud Professional ML Engineer (2024)</li>
-            <li>AWS Certified Cloud Practitioner (2022)</li>
-            <li>Microsoft Azure Fundamentals (2023)</li>
-            <li>GATE Qualified – 2025 (Score: 560), 2024 (Score: 515)</li>
-        </ul>
-    </section>
+  <!-- GITHUB STATS -->
+  <section class="container">
+    <h2>📊 Live GitHub Stats</h2>
+    <div id="stats">Loading GitHub stats...</div>
+  </section>
 
-    <!-- GITHUB STATS -->
-    <section class="container">
-        <h2>📊 Live GitHub Stats</h2>
-        <div id="stats">Loading GitHub stats...</div>
-    </section>
+  <!-- VISITOR COUNTER -->
+  <section class="container">
+    <h2>👥 Visitors</h2>
+    <div id="visitors">Loading visitor count...</div>
+  </section>
 
-    <!-- VISITOR COUNTER -->
-    <section class="container">
-        <h2>👥 Visitors</h2>
-        <div id="visitors">Loading visitor count...</div>
-    </section>
+  <section id="github-stats" class="container">
+    <h2>📈 GitHub Stats Trends</h2>
+    <canvas id="statsChart" width="600" height="300"></canvas>
+  </section>
 
-    <section id="github-stats" class="container">
-        <h2>📈 GitHub Stats Trends</h2>
-        <canvas id="statsChart" width="600" height="300"></canvas>
-    </section>
+  <!-- FOOTER -->
+  <footer>
+    <p>⭐ Built with ❤️ by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
+  </footer>
 
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    async function loadStats() {
+      try {
+        const res = await fetch("api/stats-history.json");
+        const data = await res.json();
+        const ctx = document.getElementById("statsChart").getContext("2d");
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: data.map(d => d.date),
+            datasets: [
+              { label: "⭐ Stars", data: data.map(d => d.stars), borderColor: "gold" },
+              { label: "👥 Followers", data: data.map(d => d.followers), borderColor: "blue" },
+              { label: "📦 Public Repos", data: data.map(d => d.public_repos), borderColor: "green" },
+              { label: "🔥 Commits", data: data.map(d => d.commits_this_year), borderColor: "red" }
+            ]
+          }
+        });
+      } catch { console.log("Stats error"); }
+    }
+    loadStats();
 
-    <!-- FOOTER -->
-    <footer>
-        <p>⭐ Built by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
-    </footer>
+    async function fetchGitHubStats() {
+      try {
+        const res = await fetch("https://imakshat47.github.io/api/stats.json");
+        const data = await res.json();
+        let html = "";
+        function add(label, val) { if (val && val != 0) html += `<div class='stat-item'>${label}: <b>${val}</b></div>`; }
+        add("📦 Public Repos", data.public_repos);
+        add("⭐ Stars", data.stars);
+        add("👥 Followers", data.followers);
+        add("➡️ Following", data.following);
+        add("🔥 Commits This Year", data.commits_this_year);
+        add("📍 Location", data.location);
+        document.getElementById("stats").innerHTML = html || "No stats found.";
+      } catch { document.getElementById("stats").innerText = "⚠️ Error fetching stats."; }
+    }
+    fetchGitHubStats();
 
-
-    <!-- Load Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        async function loadStats() {
-            try {
-                const res = await fetch("api/stats-history.json");
-                const data = await res.json();
-
-                // Extract metrics
-                const dates = data.map(d => d.date);
-                const stars = data.map(d => d.stars);
-                const followers = data.map(d => d.followers);
-                const repos = data.map(d => d.public_repos);
-                const commits = data.map(d => d.commits_this_year);
-
-                // Build Chart
-                const ctx = document.getElementById("statsChart").getContext("2d");
-                new Chart(ctx, {
-                    type: "line",
-                    data: {
-                        labels: dates,
-                        datasets: [
-                            {
-                                label: "⭐ Stars",
-                                data: stars,
-                                borderColor: "gold",
-                                backgroundColor: "rgba(255, 215, 0, 0.2)",
-                                fill: true
-                            },
-                            {
-                                label: "👥 Followers",
-                                data: followers,
-                                borderColor: "dodgerblue",
-                                backgroundColor: "rgba(30, 144, 255, 0.2)",
-                                fill: true
-                            },
-                            {
-                                label: "📦 Public Repos",
-                                data: repos,
-                                borderColor: "seagreen",
-                                backgroundColor: "rgba(46, 139, 87, 0.2)",
-                                fill: true
-                            },
-                            {
-                                label: "📊 Commits (This Year)",
-                                data: commits,
-                                borderColor: "crimson",
-                                backgroundColor: "rgba(220, 20, 60, 0.2)",
-                                fill: true
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: "GitHub Contribution Trends",
-                                font: { size: 18 }
-                            },
-                            legend: {
-                                position: "bottom"
-                            }
-                        },
-                        scales: {
-                            x: { title: { display: true, text: "Date" } },
-                            y: { title: { display: true, text: "Count" }, beginAtZero: true }
-                        }
-                    }
-                });
-            } catch (err) {
-                console.error("Error loading stats:", err);
-            }
-        }
-
-        loadStats();
-    </script>
-
-
-    <!-- JS: GitHub Stats -->
-    <script>
-        async function fetchGitHubStats() {
-            try {
-                const res = await fetch("https://imakshat47.github.io/api/stats.json");
-                const data = await res.json();
-
-                let statsHTML = "";
-                function add(label, value, icon = "") {
-                    if (value && value !== 0 && value !== "null") {
-                        statsHTML += `<div class="stat-item">${icon} ${label}: <b>${value}</b></div>`;
-                    }
-                }
-
-                add("📦 Public Repos", data.public_repos);
-                add("⭐ Total Stars", data.stars);
-                add("👥 Followers", data.followers);
-                add("➡️ Following", data.following);
-                add("🔥 Commits This Year", data.commits_this_year);
-                add("📍 Location", data.location);
-                add("🏢 Company", data.company);
-                add("🔗 Blog", data.blog);
-                add("📝 Bio", data.bio);
-                add("🕒 Last Updated", data.last_updated);
-
-                document.getElementById("stats").innerHTML = statsHTML || "No stats found.";
-            } catch (e) {
-                document.getElementById("stats").innerText = "⚠️ Error fetching stats.";
-            }
-        }
-        fetchGitHubStats();
-
-    </script>
-
-    <!-- JS: Visitor Counter -->
-    <script>
-        async function fetchVisitors() {
-            try {
-                const res = await fetch("https://imakshat47.github.io/api/visitors.json");
-                const data = await res.json();
-                document.getElementById("visitors").innerText =
-                    `👤 Total Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
-            } catch (e) {
-                document.getElementById("visitors").innerText = "⚠️ Error fetching visitors.";
-            }
-        }
-        fetchVisitors();
-    </script>
-
+    async function fetchVisitors() {
+      try {
+        const res = await fetch("https://imakshat47.github.io/api/visitors.json");
+        const data = await res.json();
+        document.getElementById("visitors").innerText = `👤 Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
+      } catch { document.getElementById("visitors").innerText = "⚠️ Error fetching visitors."; }
+    }
+    fetchVisitors();
+  </script>
 </body>
-
 </html>
