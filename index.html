@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Akshat Kumar | Portfolio</title>
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    #stats, #visitors {
+      margin-top: 20px;
+      font-size: 1rem;
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .stat-item {
+      margin: 6px 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -90,10 +103,77 @@
     </ul>
   </section>
 
+  <!-- GITHUB STATS -->
+  <section class="container">
+    <h2>📊 Live GitHub Stats</h2>
+    <div id="stats">Loading GitHub stats...</div>
+  </section>
+
+  <!-- VISITOR COUNTER -->
+  <section class="container">
+    <h2>👥 Visitors</h2>
+    <div id="visitors">Loading visitor count...</div>
+  </section>
+
   <!-- FOOTER -->
   <footer>
-    <p>⭐️ Built by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
+    <p>⭐ Built by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
   </footer>
 
+  <!-- JS: GitHub Stats -->
+  <script>
+    async function fetchGitHubStats() {
+      try {
+        // Basic user stats
+        const res = await fetch("https://api.github.com/users/imakshat47");
+        const user = await res.json();
+
+        // Repos for stars count
+        const repoRes = await fetch("https://api.github.com/users/imakshat47/repos?per_page=100");
+        const repos = await repoRes.json();
+        const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
+
+        let statsHTML = "";
+        function add(label, value, icon="") {
+          if (value && value !== 0 && value !== "null") {
+            statsHTML += `<div class="stat-item">${icon} ${label}: <b>${value}</b></div>`;
+          }
+        }
+
+        add("📦 Public Repos", user.public_repos);
+        add("⭐ Total Stars", totalStars);
+        add("👥 Followers", user.followers);
+        add("➡️ Following", user.following);
+        add("📍 Location", user.location);
+        add("🏢 Company", user.company);
+        add("🔗 Blog", user.blog);
+        add("📝 Bio", user.bio);
+
+        // Commits this year (requires GitHub API token normally, fallback shown)
+        statsHTML += `<div class="stat-item">🔥 Commits This Year: <b>Coming soon (needs API token)</b></div>`;
+
+        document.getElementById("stats").innerHTML = statsHTML || "No stats found.";
+      } catch (e) {
+        document.getElementById("stats").innerText = "⚠️ Error fetching stats.";
+      }
+    }
+    fetchGitHubStats();
+  </script>
+
+  <!-- JS: Visitor Counter -->
+  <script>
+    async function fetchVisitors() {
+      try {
+        const res = await fetch("https://imakshat47.github.io/api/visitors.json"); 
+        const data = await res.json();
+        document.getElementById("visitors").innerText =
+          `👤 Total Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
+      } catch (e) {
+        document.getElementById("visitors").innerText = "⚠️ Error fetching visitors.";
+      }
+    }
+    fetchVisitors();
+  </script>
+  
 </body>
 </html>
