@@ -35,16 +35,16 @@ jobs:
           visitor_file = pathlib.Path("api/visitors.json")
           visitor_file.parent.mkdir(exist_ok=True)
 
-          data = {"count": 0, "last_visit": None}
+          visitors_data = {"count": 0, "last_visit": None}
           if visitor_file.exists() and visitor_file.stat().st_size > 0:
               try:
                   with open(visitor_file) as vf:
-                      data = json.load(vf)
+                    visitors_data = json.load(vf)
               except json.JSONDecodeError:
-                  data = {"count": 0, "last_visit": None}
+                  visitors_data = {"count": 0, "last_visit": None}
 
-          data["count"] = data.get("count", 0) + 1
-          data["last_visit"] = datetime.now(UTC).isoformat()
+          visitors_data["count"] = visitors_data.get("count", 0) + 1
+          visitors_data["last_visit"] = datetime.now(UTC).isoformat()
 
           with open(visitor_file, "w") as f:
               json.dump(data, f, indent=2)
