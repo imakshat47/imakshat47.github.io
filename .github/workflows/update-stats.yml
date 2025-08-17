@@ -47,7 +47,7 @@ jobs:
           visitors_data["last_visit"] = datetime.now(UTC).isoformat()
 
           with open(visitor_file, "w") as f:
-              json.dump(data, f, indent=2)
+              json.dump(visitors_data, f, indent=2)
 
           # ===============================
           # 2. GITHUB STATS
