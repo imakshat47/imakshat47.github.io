@@ -29,16 +29,20 @@ jobs:
           headers = {"Authorization": f"Bearer {token}"}
 
           # ===============================
-          # 1. VISITOR COUNTER
+          # 1. VISITOR COUNTER (safe loader)
           # ===============================
           visitor_file = pathlib.Path("api/visitors.json")
           visitor_file.parent.mkdir(exist_ok=True)
-          if visitor_file.exists():
-              data = json.load(visitor_file.open())
-          else:
-              data = {"count": 0, "last_visit": None}
 
-          data["count"] += 1
+          data = {"count": 0, "last_visit": None}
+          if visitor_file.exists() and visitor_file.stat().st_size > 0:
+              try:
+                  with open(visitor_file) as vf:
+                      data = json.load(vf)
+              except json.JSONDecodeError:
+                  data = {"count": 0, "last_visit": None}
+
+          data["count"] = data.get("count", 0) + 1
           data["last_visit"] = datetime.datetime.utcnow().isoformat() + "Z"
 
           with open(visitor_file, "w") as f:
@@ -47,14 +51,11 @@ jobs:
           # ===============================
           # 2. GITHUB STATS
           # ===============================
-          # Basic user stats
           user = requests.get("https://api.github.com/users/imakshat47", headers=headers).json()
 
-          # Repo stars
           repos = requests.get("https://api.github.com/users/imakshat47/repos?per_page=100", headers=headers).json()
           stars = sum(r.get("stargazers_count", 0) for r in repos if isinstance(r, dict))
 
-          # Commits this year via GraphQL
           query = """
           {
             viewer {
