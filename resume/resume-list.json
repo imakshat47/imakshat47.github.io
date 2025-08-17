@@ -1,5 +1,32 @@
 [
-  { "name": "General Resume", "file": "Akshat_Kumar_Resume.pdf" },
-  { "name": "Project Loki Resume", "file": "Akshat_Kumar_Resume_Project_Loki.pdf" },
-  { "name": "Signify Resume", "file": "Signify_Akshat_Kumar_Resume.pdf" }
+  {
+    "name": "Akshat Kumar 242211003",
+    "file": "Akshat_Kumar_242211003.pdf",
+    "last_modified": "2025-02-05T12:00:26.279711+00:00"
+  },
+  {
+    "name": "Akshat Kumar Resume",
+    "file": "Akshat_Kumar_Resume.pdf",
+    "last_modified": "2025-08-02T12:49:10.745000+00:00"
+  },
+  {
+    "name": "Akshat Kumar Resume Juspay",
+    "file": "Akshat_Kumar_Resume_Juspay.pdf",
+    "last_modified": "2025-04-11T15:36:54.120118+00:00"
+  },
+  {
+    "name": "Akshat Kumar Software Engineer Imakshat47",
+    "file": "Akshat_Kumar_Software_Engineer_Imakshat47.pdf",
+    "last_modified": "2025-04-20T08:49:11.166041+00:00"
+  },
+  {
+    "name": "Imakshat47",
+    "file": "imakshat47.pdf",
+    "last_modified": "2025-08-02T12:49:10.745000+00:00"
+  },
+  {
+    "name": "Resume",
+    "file": "Resume.pdf",
+    "last_modified": "2025-08-02T12:49:10.745000+00:00"
+  }
 ]
