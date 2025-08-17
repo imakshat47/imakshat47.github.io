@@ -1,179 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Akshat Kumar | Portfolio</title>
-  <link rel="stylesheet" href="style.css"/>
-  <style>
-    #stats, #visitors {
-      margin-top: 20px;
-      font-size: 1rem;
-      background: #fff;
-      padding: 15px;
-      border-radius: 6px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .stat-item {
-      margin: 6px 0;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAVBAR -->
-  <nav>
-    <div class="nav-container">
-      <h2 class="logo">Akshat Kumar</h2>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#achievements">Achievements</a></li>
-        <li><a href="resume.html">Resume</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-text">
-      <h1>👋 Hi, I'm <span class="highlight">Akshat Kumar</span></h1>
-      <p>M.Tech CSE (Analytics) @ NIT Delhi | Data Engineer | Cloud & AI Enthusiast</p>
-      <a class="btn" href="resume.html">📄 View My Resume</a>
-      <a class="btn-outline" href="mailto:242211003@nitdelhi.ac.in">✉️ Contact Me</a>
-    </div>
-  </header>
-
-  <!-- ABOUT -->
-  <section id="about" class="container">
-    <h2>🚀 About Me</h2>
-    <p>
-      I’m a <b>Data Engineer</b> passionate about cloud systems, automation, 
-      and <b>AI-driven solutions</b>. Currently pursuing 
-      <b>M.Tech in Computer Science (Analytics)</b> at NIT Delhi after 3 years 
-      at Accenture as a <b>Data Governance Analyst</b>.
-    </p>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="container">
-    <h2>🛠️ Skills</h2>
-    <div class="grid">
-      <span>Python</span><span>C++</span><span>SQL</span><span>JavaScript</span>
-      <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span>
-    </div>
-  </section>
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="container">
-    <h2>💼 Experience</h2>
-    <div class="card">
-      <h3>Accenture (2021–2024)</h3>
-      <p>Data Engineering & Governance Analyst – Delivered ML-based predictive analytics, optimized data pipelines, and ensured compliance for enterprise data systems.</p>
-    </div>
-    <div class="card">
-      <h3>NexGen Innovators (2021)</h3>
-      <p>Web Developer – Co-created a Laravel-based CMS, optimized performance, and enabled dynamic content delivery.</p>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="container">
-    <h2>📌 Projects</h2>
-    <div class="card">
-      <h3>NexFinCo – Credit Management Platform</h3>
-      <p>Big Data + Polyglot Persistence for credit scoring and financial risk analysis.</p>
-    </div>
-    <div class="card">
-      <h3>Multi-Lingual Code-Mixed Machine Translation</h3>
-      <p>NLP system for translating mixed-language text. Published at ICCICA 2021.</p>
-    </div>
-  </section>
-
-  <!-- ACHIEVEMENTS -->
-  <section id="achievements" class="container">
-    <h2>🏆 Achievements</h2>
-    <ul>
-      <li>Google Cloud Professional ML Engineer (2024)</li>
-      <li>AWS Certified Cloud Practitioner (2022)</li>
-      <li>Microsoft Azure Fundamentals (2023)</li>
-      <li>GATE Qualified – 2025 (Score: 560), 2024 (Score: 515)</li>
-    </ul>
-  </section>
-
-  <!-- GITHUB STATS -->
-  <section class="container">
-    <h2>📊 Live GitHub Stats</h2>
-    <div id="stats">Loading GitHub stats...</div>
-  </section>
-
-  <!-- VISITOR COUNTER -->
-  <section class="container">
-    <h2>👥 Visitors</h2>
-    <div id="visitors">Loading visitor count...</div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>⭐ Built by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
-  </footer>
-
-  <!-- JS: GitHub Stats -->
-  <script>
-    async function fetchGitHubStats() {
-      try {
-        // Basic user stats
-        const res = await fetch("https://api.github.com/users/imakshat47");
-        const user = await res.json();
-
-        // Repos for stars count
-        const repoRes = await fetch("https://api.github.com/users/imakshat47/repos?per_page=100");
-        const repos = await repoRes.json();
-        const totalStars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
-
-        let statsHTML = "";
-        function add(label, value, icon="") {
-          if (value && value !== 0 && value !== "null") {
-            statsHTML += `<div class="stat-item">${icon} ${label}: <b>${value}</b></div>`;
-          }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akshat Kumar | Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        #stats,
+        #visitors {
+            margin-top: 20px;
+            font-size: 1rem;
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        add("📦 Public Repos", user.public_repos);
-        add("⭐ Total Stars", totalStars);
-        add("👥 Followers", user.followers);
-        add("➡️ Following", user.following);
-        add("📍 Location", user.location);
-        add("🏢 Company", user.company);
-        add("🔗 Blog", user.blog);
-        add("📝 Bio", user.bio);
+        .stat-item {
+            margin: 6px 0;
+        }
+    </style>
+</head>
 
-        // Commits this year (requires GitHub API token normally, fallback shown)
-        statsHTML += `<div class="stat-item">🔥 Commits This Year: <b>Coming soon (needs API token)</b></div>`;
+<body>
 
-        document.getElementById("stats").innerHTML = statsHTML || "No stats found.";
-      } catch (e) {
-        document.getElementById("stats").innerText = "⚠️ Error fetching stats.";
-      }
-    }
-    fetchGitHubStats();
-  </script>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+            <h2 class="logo">Akshat Kumar</h2>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="resume.html">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <!-- JS: Visitor Counter -->
-  <script>
-    async function fetchVisitors() {
-      try {
-        const res = await fetch("https://imakshat47.github.io/api/visitors.json"); 
-        const data = await res.json();
-        document.getElementById("visitors").innerText =
-          `👤 Total Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
-      } catch (e) {
-        document.getElementById("visitors").innerText = "⚠️ Error fetching visitors.";
-      }
-    }
-    fetchVisitors();
-  </script>
-  
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-text">
+            <h1>👋 Hi, I'm <span class="highlight">Akshat Kumar</span></h1>
+            <p>M.Tech CSE (Analytics) @ NIT Delhi | Data Engineer | Cloud & AI Enthusiast</p>
+            <a class="btn" href="resume.html">📄 View My Resume</a>
+            <a class="btn-outline" href="mailto:242211003@nitdelhi.ac.in">✉️ Contact Me</a>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="container">
+        <h2>🚀 About Me</h2>
+        <p>
+            I’m a <b>Data Engineer</b> passionate about cloud systems, automation,
+            and <b>AI-driven solutions</b>. Currently pursuing
+            <b>M.Tech in Computer Science (Analytics)</b> at NIT Delhi after 3 years
+            at Accenture as a <b>Data Governance Analyst</b>.
+        </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="container">
+        <h2>🛠️ Skills</h2>
+        <div class="grid">
+            <span>Python</span><span>C++</span><span>SQL</span><span>JavaScript</span>
+            <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="container">
+        <h2>💼 Experience</h2>
+        <div class="card">
+            <h3>Accenture (2021–2024)</h3>
+            <p>Data Engineering & Governance Analyst – Delivered ML-based predictive analytics, optimized data
+                pipelines, and ensured compliance for enterprise data systems.</p>
+        </div>
+        <div class="card">
+            <h3>NexGen Innovators (2021)</h3>
+            <p>Web Developer – Co-created a Laravel-based CMS, optimized performance, and enabled dynamic content
+                delivery.</p>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="container">
+        <h2>📌 Projects</h2>
+        <div class="card">
+            <h3>NexFinCo – Credit Management Platform</h3>
+            <p>Big Data + Polyglot Persistence for credit scoring and financial risk analysis.</p>
+        </div>
+        <div class="card">
+            <h3>Multi-Lingual Code-Mixed Machine Translation</h3>
+            <p>NLP system for translating mixed-language text. Published at ICCICA 2021.</p>
+        </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" class="container">
+        <h2>🏆 Achievements</h2>
+        <ul>
+            <li>Google Cloud Professional ML Engineer (2024)</li>
+            <li>AWS Certified Cloud Practitioner (2022)</li>
+            <li>Microsoft Azure Fundamentals (2023)</li>
+            <li>GATE Qualified – 2025 (Score: 560), 2024 (Score: 515)</li>
+        </ul>
+    </section>
+
+    <!-- GITHUB STATS -->
+    <section class="container">
+        <h2>📊 Live GitHub Stats</h2>
+        <div id="stats">Loading GitHub stats...</div>
+    </section>
+
+    <!-- VISITOR COUNTER -->
+    <section class="container">
+        <h2>👥 Visitors</h2>
+        <div id="visitors">Loading visitor count...</div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>⭐ Built by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
+    </footer>
+
+    <!-- JS: GitHub Stats -->
+    <script>
+        async function fetchGitHubStats() {
+            try {
+                const res = await fetch("https://imakshat47.github.io/api/stats.json");
+                const data = await res.json();
+
+                let statsHTML = "";
+                function add(label, value, icon = "") {
+                    if (value && value !== 0 && value !== "null") {
+                        statsHTML += `<div class="stat-item">${icon} ${label}: <b>${value}</b></div>`;
+                    }
+                }
+
+                add("📦 Public Repos", data.public_repos);
+                add("⭐ Total Stars", data.stars);
+                add("👥 Followers", data.followers);
+                add("➡️ Following", data.following);
+                add("🔥 Commits This Year", data.commits_this_year);
+                add("📍 Location", data.location);
+                add("🏢 Company", data.company);
+                add("🔗 Blog", data.blog);
+                add("📝 Bio", data.bio);
+                add("🕒 Last Updated", data.last_updated);
+
+                document.getElementById("stats").innerHTML = statsHTML || "No stats found.";
+            } catch (e) {
+                document.getElementById("stats").innerText = "⚠️ Error fetching stats.";
+            }
+        }
+        fetchGitHubStats();
+
+    </script>
+
+    <!-- JS: Visitor Counter -->
+    <script>
+        async function fetchVisitors() {
+            try {
+                const res = await fetch("https://imakshat47.github.io/api/visitors.json");
+                const data = await res.json();
+                document.getElementById("visitors").innerText =
+                    `👤 Total Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
+            } catch (e) {
+                document.getElementById("visitors").innerText = "⚠️ Error fetching visitors.";
+            }
+        }
+        fetchVisitors();
+    </script>
+
 </body>
+
 </html>
