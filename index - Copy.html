@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akshat Kumar | Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #9333ea;
+            --bg: #f9fafb;
+            --text: #111;
+            --card-bg: #fff;
+            --accent: #facc15;
+        }
+
+        body.dark {
+            --bg: #111;
+            --text: #eee;
+            --card-bg: #1e1e1e;
+        }
+
+        body {
+            font-family: "Segoe UI", sans-serif;
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        /* ---------------- NAVBAR ---------------- */
+        nav {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #fff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 18px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .toggle-dark {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #fff;
+            transition: transform 0.3s;
+        }
+
+        .toggle-dark:hover {
+            transform: rotate(20deg);
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                background: var(--primary);
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                padding: 12px;
+                border-radius: 6px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* ---------------- HERO ---------------- */
+        .hero {
+            height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            animation: fadeInUp 1.6s ease forwards;
+        }
+
+        .highlight {
+            color: var(--secondary);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #9333ea;
+            }
+
+            to {
+                text-shadow: 0 0 25px #9333ea, 0 0 40px #9333ea;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Circles */
+        .floating-bg {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: move 25s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        .circle1 {
+            width: 160px;
+            height: 160px;
+            background: var(--primary);
+            top: 15%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+
+        .circle2 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary);
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(40px, -30px);
+            }
+
+            100% {
+                transform: translate(-30px, 20px);
+            }
+        }
+
+        /* Abstract Wave Background */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: url('https://svgshare.com/i/14xR.svg') repeat-x;
+            background-size: cover;
+            animation: waveAnim 12s linear infinite;
+            opacity: 0.4;
+            z-index: 2;
+        }
+
+        @keyframes waveAnim {
+            from {
+                background-position-x: 0;
+            }
+
+            to {
+                background-position-x: 1000px;
+            }
+        }
+
+        /* Particles.js background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* ---------------- BUTTONS ---------------- */
+        .btn,
+        .btn-outline {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            position: relative;
+            z-index: 3;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: scale(1.07);
+            background: #1d4ed8;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            transform: scale(1.07);
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* ---------------- SECTIONS ---------------- */
+        section.container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-25px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .grid {
+                justify-content: center;
+            }
+        }
+
+        /* -------- Section Containers -------- */
+        section.container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+            transition: background 0.4s, color 0.4s, box-shadow 0.4s;
+            opacity: 0;
+            /* start invisible for fade-in */
+            transform: translateY(20px);
+        }
+
+        body.dark section.container {
+            background: #1e1e1e;
+            box-shadow: 0 3px 8px rgba(255, 255, 255, 0.08);
+        }
+
+        section.container h2 {
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Fade-in animation when in viewport */
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s ease-in-out;
+        }
+
+        /* -------- Cards -------- */
+        .card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: background 0.4s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark .card {
+            background: #2a2a2a;
+            box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+        }
+
+        /* -------- Skills Grid -------- */
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .grid span {
+            padding: 8px 14px;
+            background: var(--card-bg);
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .grid span:hover {
+            transform: translateY(-4px);
+            background: #f3f4f6;
+        }
+
+        body.dark .grid span {
+            background: #2a2a2a;
+            color: #eee;
+        }
+
+        body.dark .grid span:hover {
+            background: #333;
+        }
+
+        /* -------- Achievements -------- */
+        #achievements ul {
+            padding-left: 18px;
+            list-style: "⭐ ";
+        }
+
+        #achievements li {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* -------- Stats / Visitors -------- */
+        #stats,
+        #visitors {
+            margin-top: 20px;
+            font-size: 1rem;
+            padding: 15px;
+            border-radius: 8px;
+            background: var(--card-bg);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: background 0.4s;
+        }
+
+        body.dark #stats,
+        body.dark #visitors {
+            background: #2a2a2a;
+            color: #ddd;
+        }
+
+        /* -------- Responsive Adjustments -------- */
+        @media (max-width: 768px) {
+            section.container {
+                margin: 40px 15px;
+                padding: 15px;
+            }
+
+            .grid {
+                justify-content: center;
+            }
+
+            #statsChart {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+            <!-- <h2 class="logo">Akshat Kumar</h2> -->
+            <h2 class="logo"><a href="https://imakshat47.github.io/">Akshat Kumar</a></h2>
+            <div class="hamburger">☰</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="resume.html">Resume</a></li>
+            </ul>
+            <button class="toggle-dark">🌙</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div id="particles-js"></div>
+        <div class="floating-bg circle1"></div>
+        <div class="floating-bg circle2"></div>
+        <div class="wave"></div>
+        <div class="hero-text">
+            <h1>👋 Hi, I'm <span class="highlight">Akshat Kumar</span></h1>
+            <p>M.Tech CSE (Analytics) @ NIT Delhi | Data Engineer | Cloud & AI Enthusiast</p>
+            <a class="btn" href="resume.html">📄 View My Resume</a>
+            <a class="btn-outline" href="mailto:242211003@nitdelhi.ac.in">✉️ Contact Me</a>
+        </div>
+    </header>
+
+    <!-- main section -->
+    <main>
+        <!-- ABOUT -->
+        <section id="about" class="container fade-in">
+            <h2>🚀 About Me</h2>
+            <p>
+                I’m a <b>Data Engineer</b> with expertise in <b>Cloud, Data Governance, and AI-driven systems</b>.<br>
+                Currently pursuing <b>M.Tech in Computer Science (Analytics)</b> at NIT Delhi after 3 years at Accenture
+                as a
+                <b>Data Engineering Analyst</b>. Passionate about building <b>scalable, automated, and intelligent
+                    solutions</b>.
+            </p>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="container fade-in">
+            <h2>🛠️ Skills</h2>
+            <div class="grid">
+                <span>Python</span><span>C++</span><span>SQL</span><span>JavaScript</span>
+                <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span>
+            </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section id="experience" class="container fade-in">
+            <h2>💼 Experience</h2>
+            <div class="card">
+                <h3>Accenture (2021–2024)</h3>
+                <p>Data Governance & ML-driven analytics for enterprise systems, optimizing pipelines and compliance.
+                </p>
+            </div>
+            <div class="card">
+                <h3>NexGen Innovators (2021)</h3>
+                <p>Built Laravel-based CMS for content delivery and optimized backend performance.</p>
+            </div>
+            <div class="card">
+                <h3>IEEE Chairperson (2020–2021)</h3>
+                <p>Organized events, hackathons, and workshops to foster tech innovation.</p>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="container fade-in">
+            <h2>📌 Projects</h2>
+            <div class="card">
+                <h3>NexFinCo – Credit Management</h3>
+                <p>Big Data + Polyglot Persistence for credit scoring and financial risk analysis.</p>
+            </div>
+            <div class="card">
+                <h3>Multi-Lingual Code-Mixed Translation</h3>
+                <p>NLP system for translating mixed-language text (Published at ICCICA 2021).</p>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS -->
+        <section id="achievements" class="container fade-in">
+            <h2>🏆 Achievements</h2>
+            <ul>
+                <li>Google Cloud ML Engineer (2024)</li>
+                <li>AWS Cloud Practitioner (2022)</li>
+                <li>Azure Fundamentals (2023)</li>
+                <li>GATE Qualified – 2024, 2025</li>
+            </ul>
+        </section>
+
+        <!-- GITHUB STATS -->
+        <section class="container fade-in">
+            <h2>📊 Live GitHub Stats</h2>
+            <div id="stats">Loading GitHub stats...</div>
+        </section>
+
+        <!-- VISITOR COUNTER -->
+        <section class="container fade-in">
+            <h2>👥 Visitors</h2>
+            <div id="visitors">Loading visitor count...</div>
+        </section>
+
+        <section id="github-stats" class="container fade-in">
+            <h2>📈 GitHub Stats Trends</h2>
+            <canvas id="statsChart" width="600" height="300"></canvas>
+        </section>
+    </main>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function loadStats() {
+            try {
+                const res = await fetch("api/stats-history.json");
+                const data = await res.json();
+                const ctx = document.getElementById("statsChart").getContext("2d");
+                new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: data.map(d => d.date),
+                        datasets: [
+                            { label: "⭐ Stars", data: data.map(d => d.stars), borderColor: "gold" },
+                            { label: "👥 Followers", data: data.map(d => d.followers), borderColor: "blue" },
+                            { label: "📦 Public Repos", data: data.map(d => d.public_repos), borderColor: "green" },
+                            { label: "🔥 Commits", data: data.map(d => d.commits_this_year), borderColor: "red" }
+                        ]
+                    }
+                });
+            } catch { console.log("Stats error"); }
+        }
+        loadStats();
+
+        async function fetchGitHubStats() {
+            try {
+                const res = await fetch("https://imakshat47.github.io/api/stats.json");
+                const data = await res.json();
+                let html = "";
+                function add(label, val) { if (val && val != 0) html += `<div class='stat-item'>${label}: <b>${val}</b></div>`; }
+                add("📦 Public Repos", data.public_repos);
+                add("⭐ Stars", data.stars);
+                add("👥 Followers", data.followers);
+                add("➡️ Following", data.following);
+                add("🔥 Commits This Year", data.commits_this_year);
+                add("📍 Location", data.location);
+                document.getElementById("stats").innerHTML = html || "No stats found.";
+            } catch { document.getElementById("stats").innerText = "⚠️ Error fetching stats."; }
+        }
+        fetchGitHubStats();
+
+        async function fetchVisitors() {
+            try {
+                const res = await fetch("https://imakshat47.github.io/api/visitors.json");
+                const data = await res.json();
+                document.getElementById("visitors").innerText = `👤 Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
+            } catch { document.getElementById("visitors").innerText = "⚠️ Error fetching visitors."; }
+        }
+        fetchVisitors();
+    </script>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>⭐ Built with ❤️ by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
+    </footer>
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 60 },
+                color: { value: "#2563eb" },
+                shape: { type: "circle" },
+                opacity: { value: 0.4, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 120, color: "#9333ea", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 1, random: true, out_mode: "bounce" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" } }
+            }
+        });
+
+        // Dark Mode Toggle
+        document.querySelector('.toggle-dark').addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            document.querySelector('.toggle-dark').textContent =
+                document.body.classList.contains('dark') ? "☀️" : "🌙";
+        });
+
+        // Mobile Menu
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('nav ul').classList.toggle('active');
+        });
+    </script>
+    <script>
+        // Fade-in on scroll
+        const fadeEls = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                    }
+                });
+            },
+            { threshold: 0.2 } // trigger when 20% visible
+        );
+
+        fadeEls.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>
