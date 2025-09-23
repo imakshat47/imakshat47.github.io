@@ -1,0 +1,68 @@
+/* ai.css – AI/ML visuals and polish */
+
+/* Hero canvas covers the hero safely behind text */
+.ai-hero {
+  position: relative;
+  height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+#nn-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  filter: saturate(1.05) contrast(1.05);
+  opacity: 0.9;
+}
+
+/* Subtle data-stream bars (GSAP animates scaleY/opacity) */
+.data-stream {
+  position: absolute;
+  left: 2%;
+  top: 15%;
+  bottom: 15%;
+  width: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.data-stream .bar {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  transform-origin: center bottom;
+  background: linear-gradient(180deg, var(--secondary), var(--primary));
+  height: 24px;
+}
+
+.hero .hero-text {
+  position: relative;
+  z-index: 2;
+  padding: 0 16px;
+}
+
+/* Dark-mode tuning for canvas glow */
+body.dark #nn-canvas {
+  filter: saturate(1.1) contrast(1.1) brightness(0.9);
+}
+
+/* Section containers already styled in base CSS; refine spacing */
+section.container {
+  backdrop-filter: blur(2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ai-hero { height: 78vh; }
+  .data-stream { display: none; }
+}
