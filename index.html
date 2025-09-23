@@ -1,668 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Akshat Kumar | Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #9333ea;
-            --bg: #f9fafb;
-            --text: #111;
-            --card-bg: #fff;
-            --accent: #facc15;
-        }
-
-        body.dark {
-            --bg: #111;
-            --text: #eee;
-            --card-bg: #1e1e1e;
-        }
-
-        body {
-            font-family: "Segoe UI", sans-serif;
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-            transition: background 0.5s, color 0.5s;
-        }
-
-        /* ---------------- NAVBAR ---------------- */
-        nav {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            padding: 12px 20px;
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        nav .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: #fff;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 18px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .toggle-dark {
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            color: #fff;
-            transition: transform 0.3s;
-        }
-
-        .toggle-dark:hover {
-            transform: rotate(20deg);
-        }
-
-        /* Mobile Menu */
-        .hamburger {
-            display: none;
-            font-size: 1.6rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                flex-direction: column;
-                background: var(--primary);
-                position: absolute;
-                top: 60px;
-                right: 20px;
-                padding: 12px;
-                border-radius: 6px;
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            .hamburger {
-                display: block;
-            }
-        }
-
-        /* ---------------- HERO ---------------- */
-        .hero {
-            height: 95vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            animation: fadeInUp 1.2s ease forwards;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            animation: fadeInUp 1.6s ease forwards;
-        }
-
-        .highlight {
-            color: var(--secondary);
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 5px #9333ea;
-            }
-
-            to {
-                text-shadow: 0 0 25px #9333ea, 0 0 40px #9333ea;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Floating Circles */
-        .floating-bg {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: move 25s infinite alternate ease-in-out;
-            z-index: 1;
-        }
-
-        .circle1 {
-            width: 160px;
-            height: 160px;
-            background: var(--primary);
-            top: 15%;
-            left: 8%;
-            animation-delay: 0s;
-        }
-
-        .circle2 {
-            width: 200px;
-            height: 200px;
-            background: var(--secondary);
-            bottom: 15%;
-            right: 10%;
-            animation-delay: 3s;
-        }
-
-        @keyframes move {
-            0% {
-                transform: translate(0, 0);
-            }
-
-            50% {
-                transform: translate(40px, -30px);
-            }
-
-            100% {
-                transform: translate(-30px, 20px);
-            }
-        }
-
-        /* Abstract Wave Background */
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            background: url('https://svgshare.com/i/14xR.svg') repeat-x;
-            background-size: cover;
-            animation: waveAnim 12s linear infinite;
-            opacity: 0.4;
-            z-index: 2;
-        }
-
-        @keyframes waveAnim {
-            from {
-                background-position-x: 0;
-            }
-
-            to {
-                background-position-x: 1000px;
-            }
-        }
-
-        /* Particles.js background */
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-
-        /* ---------------- BUTTONS ---------------- */
-        .btn,
-        .btn-outline {
-            display: inline-block;
-            margin: 10px;
-            padding: 12px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-            position: relative;
-            z-index: 3;
-        }
-
-        .btn {
-            background: var(--primary);
-            color: #fff;
-        }
-
-        .btn:hover {
-            transform: scale(1.07);
-            background: #1d4ed8;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            transform: scale(1.07);
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        /* ---------------- SECTIONS ---------------- */
-        section.container {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 20px;
-            position: relative;
-            z-index: 5;
-        }
-
-        h2 {
-            border-bottom: 2px solid var(--primary);
-            display: inline-block;
-            padding-bottom: 5px;
-            margin-bottom: 20px;
-            animation: slideIn 1s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-25px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .grid {
-                justify-content: center;
-            }
-        }
-
-        /* -------- Section Containers -------- */
-        section.container {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-            transition: background 0.4s, color 0.4s, box-shadow 0.4s;
-            opacity: 0;
-            /* start invisible for fade-in */
-            transform: translateY(20px);
-        }
-
-        body.dark section.container {
-            background: #1e1e1e;
-            box-shadow: 0 3px 8px rgba(255, 255, 255, 0.08);
-        }
-
-        section.container h2 {
-            border-bottom: 2px solid var(--primary);
-            display: inline-block;
-            padding-bottom: 5px;
-            margin-bottom: 20px;
-        }
-
-        /* Fade-in animation when in viewport */
-        .fade-in.show {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.8s ease-in-out;
-        }
-
-        /* -------- Cards -------- */
-        .card {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-            transition: background 0.4s, transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        body.dark .card {
-            background: #2a2a2a;
-            box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
-        }
-
-        /* -------- Skills Grid -------- */
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .grid span {
-            padding: 8px 14px;
-            background: var(--card-bg);
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, background 0.3s;
-        }
-
-        .grid span:hover {
-            transform: translateY(-4px);
-            background: #f3f4f6;
-        }
-
-        body.dark .grid span {
-            background: #2a2a2a;
-            color: #eee;
-        }
-
-        body.dark .grid span:hover {
-            background: #333;
-        }
-
-        /* -------- Achievements -------- */
-        #achievements ul {
-            padding-left: 18px;
-            list-style: "⭐ ";
-        }
-
-        #achievements li {
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        /* -------- Stats / Visitors -------- */
-        #stats,
-        #visitors {
-            margin-top: 20px;
-            font-size: 1rem;
-            padding: 15px;
-            border-radius: 8px;
-            background: var(--card-bg);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-            transition: background 0.4s;
-        }
-
-        body.dark #stats,
-        body.dark #visitors {
-            background: #2a2a2a;
-            color: #ddd;
-        }
-
-        /* -------- Responsive Adjustments -------- */
-        @media (max-width: 768px) {
-            section.container {
-                margin: 40px 15px;
-                padding: 15px;
-            }
-
-            .grid {
-                justify-content: center;
-            }
-
-            #statsChart {
-                width: 100% !important;
-                height: auto !important;
-            }
-        }
-    </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshat Kumar - AI/ML Engineer & Neural Systems Architect</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <!-- NAVBAR -->
-    <nav>
+    <!-- Neural Background -->
+    <div class="neural-bg">
+        <canvas id="neural-canvas" class="neural-canvas"></canvas>
+        <div class="background-patterns"></div>
+    </div>
+
+    <!-- Code Animation Corner -->
+    <div class="code-animation-container">
+        <div class="code-display">
+            <div class="code-header">
+                <div class="code-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <span class="code-title">neural_healthcare_ai.py</span>
+            </div>
+            <div class="code-content">
+                <pre id="typewriter"></pre>
+                <span class="cursor">|</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="nav-container">
-            <!-- <h2 class="logo">Akshat Kumar</h2> -->
-            <h2 class="logo"><a href="https://imakshat47.github.io/">Akshat Kumar</a></h2>
-            <div class="hamburger">☰</div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#achievements">Achievements</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
-            <button class="toggle-dark">🌙</button>
+            <div class="nav-logo">
+                <span class="logo-text">Akshat Kumar</span>
+                <div class="logo-subtitle">AI/ML Engineer</div>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link" data-section="home">Home</a>
+                <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <header class="hero">
-        <div id="particles-js"></div>
-        <div class="floating-bg circle1"></div>
-        <div class="floating-bg circle2"></div>
-        <div class="wave"></div>
-        <div class="hero-text">
-            <h1>👋 Hi, I'm <span class="highlight">Akshat Kumar</span></h1>
-            <p>M.Tech CSE (Analytics) @ NIT Delhi | Data Engineer | Cloud & AI Enthusiast</p>
-            <a class="btn" href="resume.html">📄 View My Resume</a>
-            <a class="btn-outline" href="mailto:242211003@nitdelhi.ac.in">✉️ Contact Me</a>
-        </div>
-    </header>
-
-    <!-- main section -->
-    <main>
-        <!-- ABOUT -->
-        <section id="about" class="container fade-in">
-            <h2>🚀 About Me</h2>
-            <p>
-                I’m a <b>Data Engineer</b> with expertise in <b>Cloud, Data Governance, and AI-driven systems</b>.<br>
-                Currently pursuing <b>M.Tech in Computer Science (Analytics)</b> at NIT Delhi after 3 years at Accenture
-                as a
-                <b>Data Engineering Analyst</b>. Passionate about building <b>scalable, automated, and intelligent
-                    solutions</b>.
-            </p>
-        </section>
-
-        <!-- SKILLS -->
-        <section id="skills" class="container fade-in">
-            <h2>🛠️ Skills</h2>
-            <div class="grid">
-                <span>Python</span><span>C++</span><span>SQL</span><span>JavaScript</span>
-                <span>Docker</span><span>Kubernetes</span><span>AWS</span><span>GCP</span>
-            </div>
-        </section>
-
-        <!-- EXPERIENCE -->
-        <section id="experience" class="container fade-in">
-            <h2>💼 Experience</h2>
-            <div class="card">
-                <h3>Accenture (2021–2024)</h3>
-                <p>Data Governance & ML-driven analytics for enterprise systems, optimizing pipelines and compliance.
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-main">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>Available for Collaboration</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span class="name-text">Akshat Kumar</span>
+                    <span class="title-text">AI/ML Engineer & Healthcare AI Specialist</span>
+                    <span class="subtitle-text">Neural Systems Architect</span>
+                </h1>
+                
+                <p class="hero-description">
+                    Transforming Healthcare Through Intelligent Systems. Neural systems researcher specializing in Large Language Models for Healthcare EHRs, building production AI systems that bridge complex medical data and intelligent decision support.
                 </p>
+                
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn--primary" data-section="projects">
+                        <span>View Projects</span>
+                        <div class="btn-arrow">→</div>
+                    </a>
+                    <a href="#contact" class="btn btn--secondary" data-section="contact">
+                        <span>Get In Touch</span>
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Technologies Mastered</div>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <h3>NexGen Innovators (2021)</h3>
-                <p>Built Laravel-based CMS for content delivery and optimized backend performance.</p>
+            
+            <div class="hero-visual">
+                <div class="neural-visualization">
+                    <div class="neural-nodes">
+                        <div class="node node--input"></div>
+                        <div class="node node--hidden"></div>
+                        <div class="node node--hidden"></div>
+                        <div class="node node--output"></div>
+                    </div>
+                    <div class="neural-connections">
+                        <div class="connection"></div>
+                        <div class="connection"></div>
+                        <div class="connection"></div>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <h3>IEEE Chairperson (2020–2021)</h3>
-                <p>Organized events, hackathons, and workshops to foster tech innovation.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Neural systems researcher with expertise in AI/ML and healthcare technology</p>
             </div>
-        </section>
 
-        <!-- PROJECTS -->
-        <section id="projects" class="container fade-in">
-            <h2>📌 Projects</h2>
-            <div class="card">
-                <h3>NexFinCo – Credit Management</h3>
-                <p>Big Data + Polyglot Persistence for credit scoring and financial risk analysis.</p>
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-intro">
+                        <h3>Bridging AI Innovation with Healthcare Impact</h3>
+                        <p>AI/ML and data engineering professional focused on building scalable, robust, and privacy-aware ML systems in production with modern cloud and MLOps practices. Currently pursuing M.Tech at NIT Delhi while developing cutting-edge healthcare AI solutions.</p>
+                    </div>
+                    
+                    <div class="expertise-areas">
+                        <div class="expertise-card">
+                            <h4>Healthcare AI Specialization</h4>
+                            <p>Developing LLM-based clinical decision support systems and medical NLP solutions for EHR processing.</p>
+                        </div>
+                        <div class="expertise-card">
+                            <h4>Production ML Systems</h4>
+                            <p>Building scalable ML pipelines and data engineering solutions on cloud platforms with enterprise-grade governance.</p>
+                        </div>
+                        <div class="expertise-card">
+                            <h4>Research & Innovation</h4>
+                            <p>Published researcher contributing to medical AI advancement with focus on privacy-aware implementations.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Connect With Me</h3>
+                    <div class="contact-links">
+                        <a href="mailto:242211003@nitdelhi.ac.in" class="contact-link" target="_blank">
+                            <span class="contact-icon">📧</span>
+                            <span>242211003@nitdelhi.ac.in</span>
+                        </a>
+                        <a href="https://github.com/imakshat47" target="_blank" class="contact-link">
+                            <span class="contact-icon">🔗</span>
+                            <span>GitHub Portfolio</span>
+                        </a>
+                        <a href="https://linkedin.com/in/imakshat47" target="_blank" class="contact-link">
+                            <span class="contact-icon">💼</span>
+                            <span>LinkedIn Profile</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <h3>Multi-Lingual Code-Mixed Translation</h3>
-                <p>NLP system for translating mixed-language text (Published at ICCICA 2021).</p>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section experience-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">EXPERIENCE_LAYER</div>
+                <h2 class="section-title">Professional Experience Journey</h2>
+                <p class="section-subtitle">Building intelligent systems across research, enterprise, and innovation environments</p>
             </div>
-        </section>
 
-        <!-- ACHIEVEMENTS -->
-        <section id="achievements" class="container fade-in">
-            <h2>🏆 Achievements</h2>
-            <ul>
-                <li>Google Cloud ML Engineer (2024)</li>
-                <li>AWS Cloud Practitioner (2022)</li>
-                <li>Azure Fundamentals (2023)</li>
-                <li>GATE Qualified – 2024, 2025</li>
-            </ul>
-        </section>
+            <div class="experience-timeline">
+                <!-- Current Position -->
+                <div class="timeline-item featured-experience">
+                    <div class="timeline-marker current-marker">
+                        <div class="marker-pulse"></div>
+                    </div>
+                    <div class="experience-card featured-card">
+                        <div class="experience-status">
+                            <span class="status-current">CURRENT POSITION</span>
+                            <span class="experience-duration">8 months</span>
+                        </div>
+                        <div class="experience-header">
+                            <div class="company-section">
+                                <h3 class="company-name">STMicroelectronics</h3>
+                                <div class="department-info">
+                                    <span class="department-badge">TRD Department</span>
+                                    <span class="department-full">Technology Research & Development</span>
+                                </div>
+                            </div>
+                            <div class="role-section">
+                                <h4 class="role-title">AI/ML Research Intern</h4>
+                                <span class="period-badge">2024 - Present</span>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-content">
+                            <div class="role-description">
+                                <p><strong>Leading-edge AI Research:</strong> Developing LLM/NLP proof-of-concepts and curating specialized datasets for technology research initiatives. Building ML workflows aligned with advanced R&D architecture.</p>
+                            </div>
+                            
+                            <div class="key-achievements">
+                                <h5>Key Achievements & Responsibilities</h5>
+                                <ul>
+                                    <li>Advanced R&D in neural language models and transformer architectures</li>
+                                    <li>CUDA-optimized ML pipeline development for high-performance computing</li>
+                                    <li>Dataset curation and preprocessing for specialized AI research applications</li>
+                                    <li>Collaboration with senior researchers on cutting-edge AI projects</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tech-stack">
+                                <span class="tech-tag primary-tech">PyTorch</span>
+                                <span class="tech-tag primary-tech">Transformers</span>
+                                <span class="tech-tag primary-tech">CUDA</span>
+                                <span class="tech-tag primary-tech">MLOps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- GITHUB STATS -->
-        <section class="container fade-in">
-            <h2>📊 Live GitHub Stats</h2>
-            <div id="stats">Loading GitHub stats...</div>
-        </section>
+                <!-- Accenture Position -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="experience-card">
+                        <div class="experience-status">
+                            <span class="status-completed">COMPLETED</span>
+                            <span class="experience-duration">3 years</span>
+                        </div>
+                        <div class="experience-header">
+                            <div class="company-section">
+                                <h3 class="company-name">Accenture</h3>
+                                <div class="company-type">Global Consulting & Technology</div>
+                            </div>
+                            <div class="role-section">
+                                <h4 class="role-title">Data Engineering Analyst</h4>
+                                <span class="period-badge">2021 - 2024</span>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-content">
+                            <div class="role-description">
+                                <p><strong>Enterprise Data Architecture:</strong> Architected enterprise data governance systems on Hadoop/Spark infrastructure. Led production-grade pipeline development and automated compliance monitoring.</p>
+                            </div>
+                            
+                            <div class="key-achievements">
+                                <h5>Key Achievements & Impact</h5>
+                                <ul>
+                                    <li>Designed and implemented enterprise-scale data governance frameworks</li>
+                                    <li>Built automated compliance monitoring systems reducing manual oversight by 60%</li>
+                                    <li>Led cross-functional teams in production pipeline development</li>
+                                    <li>Optimized big data processing workflows for Fortune 500 clients</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tech-stack">
+                                <span class="tech-tag">Hadoop</span>
+                                <span class="tech-tag">Spark</span>
+                                <span class="tech-tag">Kafka</span>
+                                <span class="tech-tag">Airflow</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- VISITOR COUNTER -->
-        <section class="container fade-in">
-            <h2>👥 Visitors</h2>
-            <div id="visitors">Loading visitor count...</div>
-        </section>
+                <!-- NexGen Position -->
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="experience-card">
+                        <div class="experience-status">
+                            <span class="status-completed">FOUNDATION</span>
+                            <span class="experience-duration">6 months</span>
+                        </div>
+                        <div class="experience-header">
+                            <div class="company-section">
+                                <h3 class="company-name">NexGen Innovators</h3>
+                                <div class="company-type">Technology Startup</div>
+                            </div>
+                            <div class="role-section">
+                                <h4 class="role-title">Full-Stack Developer</h4>
+                                <span class="period-badge">2021</span>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-content">
+                            <div class="role-description">
+                                <p><strong>Foundation Building:</strong> Developed Laravel-based content management systems with optimized API integrations and scalable architecture for high-performance delivery.</p>
+                            </div>
+                            
+                            <div class="key-achievements">
+                                <h5>Key Learning & Contributions</h5>
+                                <ul>
+                                    <li>Built high-performance web application architectures</li>
+                                    <li>Implemented scalable API integration solutions</li>
+                                    <li>Developed expertise in full-stack development practices</li>
+                                    <li>Contributed to startup growth and technical innovation</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tech-stack">
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">Vue.js</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section id="github-stats" class="container fade-in">
-            <h2>📈 GitHub Stats Trends</h2>
-            <canvas id="statsChart" width="600" height="300"></canvas>
-        </section>
-    </main>
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge">PROJECT_OUTPUT</div>
+                <h2 class="section-title">Featured Project Portfolio</h2>
+                <p class="section-subtitle">Innovative AI/ML solutions transforming healthcare, education, and finance</p>
+            </div>
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        async function loadStats() {
-            try {
-                const res = await fetch("api/stats-history.json");
-                const data = await res.json();
-                const ctx = document.getElementById("statsChart").getContext("2d");
-                new Chart(ctx, {
-                    type: "line",
-                    data: {
-                        labels: data.map(d => d.date),
-                        datasets: [
-                            { label: "⭐ Stars", data: data.map(d => d.stars), borderColor: "gold" },
-                            { label: "👥 Followers", data: data.map(d => d.followers), borderColor: "blue" },
-                            { label: "📦 Public Repos", data: data.map(d => d.public_repos), borderColor: "green" },
-                            { label: "🔥 Commits", data: data.map(d => d.commits_this_year), borderColor: "red" }
-                        ]
-                    }
-                });
-            } catch { console.log("Stats error"); }
-        }
-        loadStats();
+            <div class="projects-grid">
+                <!-- Neural Healthcare Assistant -->
+                <div class="project-card featured-project">
+                    <div class="project-header">
+                        <div class="project-status">
+                            <span class="status-badge research-active">Research</span>
+                            <span class="project-category">Healthcare AI</span>
+                        </div>
+                        <div class="project-priority">
+                            <span class="priority-badge">THESIS PROJECT</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">Neural Healthcare Assistant</h3>
+                        <p class="project-description">
+                            LLM-based clinical decision support system processing EHR data through transformer architectures for intelligent healthcare insights.
+                        </p>
+                        
+                        <div class="project-impact">
+                            <div class="impact-primary">
+                                <span class="impact-number">40%</span>
+                                <span class="impact-text">reduction in clinical documentation time</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag featured">PyTorch</span>
+                            <span class="tech-tag featured">Transformers</span>
+                            <span class="tech-tag featured">FHIR</span>
+                            <span class="tech-tag featured">FastAPI</span>
+                        </div>
+                    </div>
+                </div>
 
-        async function fetchGitHubStats() {
-            try {
-                const res = await fetch("https://imakshat47.github.io/api/stats.json");
-                const data = await res.json();
-                let html = "";
-                function add(label, val) { if (val && val != 0) html += `<div class='stat-item'>${label}: <b>${val}</b></div>`; }
-                add("📦 Public Repos", data.public_repos);
-                add("⭐ Stars", data.stars);
-                add("👥 Followers", data.followers);
-                add("➡️ Following", data.following);
-                add("🔥 Commits This Year", data.commits_this_year);
-                add("📍 Location", data.location);
-                document.getElementById("stats").innerHTML = html || "No stats found.";
-            } catch { document.getElementById("stats").innerText = "⚠️ Error fetching stats."; }
-        }
-        fetchGitHubStats();
+                <!-- Intervu.AI -->
+                <div class="project-card production-project">
+                    <div class="project-header">
+                        <div class="project-status">
+                            <span class="status-badge production-live">Production</span>
+                            <span class="project-category">AI Assistant</span>
+                        </div>
+                        <div class="project-priority">
+                            <span class="priority-badge live">LIVE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">Intervu.AI</h3>
+                        <p class="project-description">
+                            Agentic interview coach using LangChain with real-time feedback loops and adaptive questioning algorithms.
+                        </p>
+                        
+                        <div class="project-impact">
+                            <div class="impact-primary">
+                                <span class="impact-number">500+</span>
+                                <span class="impact-text">active users benefiting from AI coaching</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">LangChain</span>
+                            <span class="tech-tag">OpenAI</span>
+                            <span class="tech-tag">Speech-to-Text</span>
+                            <span class="tech-tag">RAG</span>
+                        </div>
+                    </div>
+                </div>
 
-        async function fetchVisitors() {
-            try {
-                const res = await fetch("https://imakshat47.github.io/api/visitors.json");
-                const data = await res.json();
-                document.getElementById("visitors").innerText = `👤 Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
-            } catch { document.getElementById("visitors").innerText = "⚠️ Error fetching visitors."; }
-        }
-        fetchVisitors();
-    </script>
-    </main>
+                <!-- BolSaathi -->
+                <div class="project-card deployed-project">
+                    <div class="project-header">
+                        <div class="project-status">
+                            <span class="status-badge deployed-active">Deployed</span>
+                            <span class="project-category">Voice AI</span>
+                        </div>
+                        <div class="project-priority">
+                            <span class="priority-badge social">SOCIAL IMPACT</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">BolSaathi</h3>
+                        <p class="project-description">
+                            Voice-first multilingual healthcare AI with speech-to-NLP-to-TTS pipeline for accessible medical information.
+                        </p>
+                        
+                        <div class="project-impact">
+                            <div class="impact-primary">
+                                <span class="impact-number">Rural</span>
+                                <span class="impact-text">healthcare communities served</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Whisper</span>
+                            <span class="tech-tag">mBERT</span>
+                            <span class="tech-tag">TTS</span>
+                            <span class="tech-tag">Flutter</span>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>⭐ Built with ❤️ by Akshat Kumar | <a href="https://github.com/imakshat47">GitHub</a></p>
+                <!-- NexFinCo -->
+                <div class="project-card production-project">
+                    <div class="project-header">
+                        <div class="project-status">
+                            <span class="status-badge production-live">Production</span>
+                            <span class="project-category">FinTech ML</span>
+                        </div>
+                        <div class="project-priority">
+                            <span class="priority-badge enterprise">ENTERPRISE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">NexFinCo</h3>
+                        <p class="project-description">
+                            Credit risk modeling system with polyglot persistence and streaming analytics for real-time financial decisions.
+                        </p>
+                        
+                        <div class="project-impact">
+                            <div class="impact-primary">
+                                <span class="impact-number">$10M+</span>
+                                <span class="impact-text">loan applications processed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-stack">
+                            <span class="tech-tag">Spark</span>
+                            <span class="tech-tag">Kafka</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Redis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Let's Connect</h2>
+                <p class="section-subtitle">Ready to collaborate on innovative AI/ML projects</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-main">
+                    <h3>Available for Collaboration</h3>
+                    <p>I'm currently open to discussing exciting opportunities in AI/ML, particularly in healthcare technology, research collaborations, and innovative product development.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-label">Email</span>
+                            <a href="mailto:242211003@nitdelhi.ac.in" target="_blank">242211003@nitdelhi.ac.in</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Location</span>
+                            <span>New Delhi, India</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Status</span>
+                            <span class="status-available">Available for opportunities</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-links-section">
+                    <h3>Professional Links</h3>
+                    <div class="professional-links">
+                        <a href="https://github.com/imakshat47" target="_blank" class="professional-link">
+                            <span class="link-icon">🔗</span>
+                            <div class="link-content">
+                                <span class="link-title">GitHub</span>
+                                <span class="link-desc">View code repositories</span>
+                            </div>
+                        </a>
+                        <a href="https://linkedin.com/in/imakshat47" target="_blank" class="professional-link">
+                            <span class="link-icon">💼</span>
+                            <div class="link-content">
+                                <span class="link-title">LinkedIn</span>
+                                <span class="link-desc">Professional network</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-logo">Akshat Kumar</div>
+                    <p>&copy; 2025 Akshat Kumar. AI/ML Engineer & Healthcare AI Specialist.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="mailto:242211003@nitdelhi.ac.in" target="_blank">Email</a>
+                    <a href="https://github.com/imakshat47" target="_blank">GitHub</a>
+                    <a href="https://linkedin.com/in/imakshat47" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <!-- Particles.js -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 60 },
-                color: { value: "#2563eb" },
-                shape: { type: "circle" },
-                opacity: { value: 0.4, random: true },
-                size: { value: 3, random: true },
-                line_linked: { enable: true, distance: 120, color: "#9333ea", opacity: 0.4, width: 1 },
-                move: { enable: true, speed: 1, random: true, out_mode: "bounce" }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: { onhover: { enable: true, mode: "repulse" } }
-            }
-        });
-
-        // Dark Mode Toggle
-        document.querySelector('.toggle-dark').addEventListener('click', () => {
-            document.body.classList.toggle('dark');
-            document.querySelector('.toggle-dark').textContent =
-                document.body.classList.contains('dark') ? "☀️" : "🌙";
-        });
-
-        // Mobile Menu
-        document.querySelector('.hamburger').addEventListener('click', () => {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
-    </script>
-    <script>
-        // Fade-in on scroll
-        const fadeEls = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                    }
-                });
-            },
-            { threshold: 0.2 } // trigger when 20% visible
-        );
-
-        fadeEls.forEach(el => observer.observe(el));
-    </script>
-
+    <script src="app.js"></script>
 </body>
-
 </html>
