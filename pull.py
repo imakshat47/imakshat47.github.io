@@ -43,8 +43,10 @@ user_data = requests.get(f"https://api.github.com/users/{username}", headers=hea
 repos_data = requests.get(f"https://api.github.com/users/{username}/repos?per_page=100", headers=headers).json()
 stars = sum(r.get("stargazers_count", 0) for r in repos_data if isinstance(r, dict))
 
-# --- GraphQL API for commit count ---
-commits = 0
+# --- GraphQL API for commits ---
+commits_year = 0
+commits_today = 0
+
 if token:
     graphql_query = {
         "query": """
@@ -53,23 +55,43 @@ if token:
             contributionsCollection {
               contributionCalendar {
                 totalContributions
+                weeks {
+                  contributionDays {
+                    date
+                    contributionCount
+                  }
+                }
               }
             }
           }
         }
         """
     }
+
     try:
         gql = requests.post("https://api.github.com/graphql", json=graphql_query, headers=headers).json()
-        commits = (
+
+        calendar = (
             gql.get("data", {})
                .get("viewer", {})
                .get("contributionsCollection", {})
                .get("contributionCalendar", {})
-               .get("totalContributions", 0)
         )
-    except Exception:
-        commits = 0
+
+        # Total commits this year
+        commits_year = calendar.get("totalContributions", 0)
+
+        # Extract today's commit count
+        today_str = datetime.now(UTC).strftime("%Y-%m-%d")
+        all_days = [day for w in calendar.get("weeks", []) for day in w.get("contributionDays", [])]
+        today_entry = next((d for d in all_days if d.get("date") == today_str), None)
+        if today_entry:
+            commits_today = today_entry.get("contributionCount", 0)
+
+    except Exception as e:
+        print("⚠️ GraphQL API failed:", e)
+        commits_year = 0
+        commits_today = 0
 
 # --- Create stats snapshot ---
 stats = {
@@ -77,7 +99,8 @@ stats = {
     "stars": stars,
     "followers": user_data.get("followers", 0),
     "following": user_data.get("following", 0),
-    "commits_this_year": commits,
+    "commits_this_year": commits_year,
+    "commits_today": commits_today,
     "location": user_data.get("location", ""),
     "company": user_data.get("company", ""),
     "blog": user_data.get("blog", ""),
@@ -104,7 +127,8 @@ history[weekday] = {
     # "stars": stats["stars"],
     # "followers": stats["followers"],
     # "public_repos": stats["public_repos"],
-    "commits_this_year": stats["commits_this_year"],
+    "commits_this_year": stats["commits_today"],
+    # "commits_this_year": stats["commits_this_year"],
 }
 
 # Keep only 7 unique days (Mon–Sun)

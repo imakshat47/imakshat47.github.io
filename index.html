@@ -604,9 +604,9 @@ console.log(data)
         data: {
           labels: weekData.map(d => d.day),
           datasets: [
-            { label: "⭐ Stars", data: weekData.map(d => d.stars), borderColor: gradients.stars, tension: 0.35, fill: false },
-            { label: "👥 Followers", data: weekData.map(d => d.followers), borderColor: gradients.followers, tension: 0.35, fill: false },
-            { label: "📦 Repos", data: weekData.map(d => d.public_repos), borderColor: gradients.repos, tension: 0.35, fill: false },
+            // { label: "⭐ Stars", data: weekData.map(d => d.stars), borderColor: gradients.stars, tension: 0.35, fill: false },
+            // { label: "👥 Followers", data: weekData.map(d => d.followers), borderColor: gradients.followers, tension: 0.35, fill: false },
+            // { label: "📦 Repos", data: weekData.map(d => d.public_repos), borderColor: gradients.repos, tension: 0.35, fill: false },
             { label: "🔥 Commits", data: weekData.map(d => d.commits_this_year), borderColor: gradients.commits, tension: 0.35, fill: false }
           ]
         },
