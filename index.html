@@ -575,112 +575,177 @@
         </div>
     </section>
 
-    <!-- Github Section -->
-    <section id="contact" class="section contact-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">📊 GitHub Analytics</h2>
-                <p class="section-subtitle">Your recent 7-day activity overview</p>
-            </div>
+   <!-- =========================
+📊 GitHub Analytics Section
+========================= -->
+<section id="contact" class="section contact-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">📈 GitHub Analytics</h2>
+      <p class="section-subtitle">7-day contribution & growth insights</p>
+    </div>
 
-            <div class="contact-content">
-                <!-- LIVE GITHUB STATS -->
-                <section class="container fade-in">
-                    <h3>⚡ Live GitHub Stats</h3>
-                    <div id="stats">Loading GitHub stats...</div>
-                </section>
+    <div class="contact-content">
+      <!-- LIVE GITHUB STATS -->
+      <section class="container fade-in">
+        <h3>⚡ Live GitHub Overview</h3>
+        <div id="stats" class="stats-grid">Loading stats...</div>
+      </section>
 
-                <!-- VISITOR COUNTER -->
-                <section class="container fade-in">
-                    <h3>👥 Visitor Insights</h3>
-                    <div id="visitors">Loading visitor count...</div>
-                </section>
+      <!-- VISITOR COUNTER -->
+      <section class="container fade-in">
+        <h3>👥 Visitor Insights</h3>
+        <div id="visitors" class="visitors-card">Loading visitor data...</div>
+      </section>
 
-                <!-- STATS TREND CHART -->
-                <section id="github-stats" class="container fade-in">
-                    <h3>📈 7-Day Growth Trend</h3>
-                    <canvas id="statsChart" width="600" height="300"></canvas>
-                </section>
-            </div>
+      <!-- CHART SECTION -->
+      <section id="github-stats" class="container fade-in">
+        <h3>📊 7-Day Growth Trends</h3>
+        <canvas id="statsChart" height="320"></canvas>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+📈 Chart.js Setup
+========================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Utility to beautify stat cards
+  const createStatItem = (label, value, icon = "") =>
+    `<div class="stat-item">
+        <span class="stat-icon">${icon}</span>
+        <div class="stat-content">
+          <div class="stat-label">${label}</div>
+          <div class="stat-value">${value ?? "-"}</div>
         </div>
-    </section>
+     </div>`;
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // --- Fetch GitHub Stats for Display ---
-        async function fetchGitHubStats() {
-            try {
-                const res = await fetch("https://imakshat47.github.io/api/stats.json");
-                const data = await res.json();
-                let html = "";
-                const add = (label, val) => { if (val) html += `<div class='stat-item'>${label}: <b>${val}</b></div>`; };
-                add("📦 Public Repos", data.public_repos);
-                add("⭐ Stars", data.stars);
-                add("👥 Followers", data.followers);
-                add("➡️ Following", data.following);
-                add("🔥 Commits This Year", data.commits_this_year);
-                add("📍 Location", data.location);
-                document.getElementById("stats").innerHTML = html || "No stats available.";
-            } catch (err) {
-                document.getElementById("stats").innerText = "⚠️ Error loading stats.";
+  // === 1. Fetch Live GitHub Stats ===
+  async function fetchGitHubStats() {
+    try {
+      const res = await fetch("https://imakshat47.github.io/api/stats.json");
+      const data = await res.json();
+
+      document.getElementById("stats").innerHTML = `
+        ${createStatItem("Public Repos", data.public_repos, "📦")}
+        ${createStatItem("Stars", data.stars, "⭐")}
+        ${createStatItem("Followers", data.followers, "👥")}
+        ${createStatItem("Following", data.following, "➡️")}
+        ${createStatItem("Commits This Year", data.commits_this_year, "🔥")}
+        ${createStatItem("Location", data.location || "—", "📍")}
+      `;
+    } catch (err) {
+      console.error("Stats error:", err);
+      document.getElementById("stats").innerText = "⚠️ Unable to load stats.";
+    }
+  }
+
+  // === 2. Fetch Visitor Count ===
+  async function fetchVisitors() {
+    try {
+      const res = await fetch("https://imakshat47.github.io/api/visitors.json");
+      const data = await res.json();
+      document.getElementById("visitors").innerHTML = `
+        👤 <b>${data.count}</b> total visitors<br>
+        ⏱️ Last Visit: <span>${new Date(data.last_visit).toLocaleString()}</span>
+      `;
+    } catch {
+      document.getElementById("visitors").innerText = "⚠️ Error fetching visitors.";
+    }
+  }
+
+  // === 3. Load & Render Advanced Chart ===
+  async function loadStatsTrend() {
+    try {
+      const res = await fetch("https://imakshat47.github.io/api/stats-history.json");
+      const data = await res.json();
+    console.log(data)
+      // Ensure data sorted in weekday order
+      const weekOrder = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+      const weekData = weekOrder
+        .filter(day => data[day])
+        .map(day => ({ day, ...data[day] }));
+
+      const ctx = document.getElementById("statsChart").getContext("2d");
+
+      // Create gradient strokes
+      const gradients = {
+        stars: createGradient(ctx, "#facc15", "#fbbf24"),
+        followers: createGradient(ctx, "#3b82f6", "#60a5fa"),
+        repos: createGradient(ctx, "#10b981", "#34d399"),
+        commits: createGradient(ctx, "#ef4444", "#f87171")
+      };
+
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: weekData.map(d => d.day),
+          datasets: [
+            { label: "⭐ Stars", data: weekData.map(d => d.stars), borderColor: gradients.stars, tension: 0.35, fill: false },
+            { label: "👥 Followers", data: weekData.map(d => d.followers), borderColor: gradients.followers, tension: 0.35, fill: false },
+            { label: "📦 Repos", data: weekData.map(d => d.public_repos), borderColor: gradients.repos, tension: 0.35, fill: false },
+            { label: "🔥 Commits", data: weekData.map(d => d.commits_this_year), borderColor: gradients.commits, tension: 0.35, fill: false }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                color: getComputedStyle(document.documentElement)
+                  .getPropertyValue("--color-text") || "#e5e7eb"
+              }
+            },
+            title: {
+              display: true,
+              text: "7-Day GitHub Contribution Trend",
+              color: "#fff",
+              font: { size: 16, weight: "bold" }
+            },
+            tooltip: {
+              backgroundColor: "rgba(30,41,59,0.9)",
+              titleColor: "#f3f4f6",
+              bodyColor: "#e2e8f0",
+              borderWidth: 1,
+              borderColor: "rgba(59,130,246,0.4)"
             }
-        }
-
-        // --- Fetch Visitor Count ---
-        async function fetchVisitors() {
-            try {
-                const res = await fetch("https://imakshat47.github.io/api/visitors.json");
-                const data = await res.json();
-                document.getElementById("visitors").innerText = `👤 Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
-            } catch {
-                document.getElementById("visitors").innerText = "⚠️ Error loading visitors.";
+          },
+          interaction: { mode: "index", intersect: false },
+          scales: {
+            x: {
+              ticks: { color: "#cbd5e1" },
+              grid: { color: "rgba(148,163,184,0.15)" }
+            },
+            y: {
+              beginAtZero: true,
+              ticks: { color: "#cbd5e1" },
+              grid: { color: "rgba(148,163,184,0.15)" },
+              title: { display: true, text: "Count", color: "#94a3b8" }
             }
+          }
         }
+      });
+    } catch (err) {
+      console.error("Error rendering chart:", err);
+    }
+  }
 
-        // --- Load and Render Chart (Last 7 Days Only) ---
-        async function loadStatsTrend() {
-            try {
-                const res = await fetch("https://imakshat47.github.io/api/stats-history.json");
-                const data = await res.json();
+  // Helper: gradient generator
+  function createGradient(ctx, color1, color2) {
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, color1);
+    gradient.addColorStop(1, color2);
+    return gradient;
+  }
 
-                // Take only the last 7 days for the trend
-                const recentData = data.slice(-7);
-
-                const ctx = document.getElementById("statsChart").getContext("2d");
-                new Chart(ctx, {
-                    type: "line",
-                    data: {
-                        labels: recentData.map(d => d.date),
-                        datasets: [
-                            { label: "⭐ Stars", data: recentData.map(d => d.stars), borderColor: "gold", fill: false },
-                            { label: "👥 Followers", data: recentData.map(d => d.followers), borderColor: "#3b82f6", fill: false },
-                            { label: "📦 Repos", data: recentData.map(d => d.public_repos), borderColor: "#10b981", fill: false },
-                            { label: "🔥 Commits", data: recentData.map(d => d.commits_this_year), borderColor: "#ef4444", fill: false }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { position: "top" },
-                            title: { display: true, text: "Past 7-Day GitHub Activity" }
-                        },
-                        scales: {
-                            x: { title: { display: true, text: "Date" } },
-                            y: { title: { display: true, text: "Count" }, beginAtZero: true }
-                        }
-                    }
-                });
-            } catch {
-                console.error("Error loading stats trend.");
-            }
-        }
-
-        // --- Initialize ---
-        fetchGitHubStats();
-        fetchVisitors();
-        loadStatsTrend();
-    </script>
+  // === Initialize Everything ===
+  fetchGitHubStats();
+  fetchVisitors();
+  loadStatsTrend();
+</script>
 
 
     <!-- Contact Section -->

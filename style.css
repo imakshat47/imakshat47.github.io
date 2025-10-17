@@ -2226,3 +2226,43 @@ select.form-control {
     transform: none;
   }
 }
+
+/* Git Styles */
+
+ .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .stat-item {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: left;
+    color: #e2e8f0;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .stat-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
+  }
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  .stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 0.25rem;
+  }
+  .visitors-card {
+    margin-top: 1rem;
+    background: rgba(15, 23, 42, 0.7);
+    padding: 1rem;
+    border-radius: 10px;
+    color: #e2e8f0;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+  }
