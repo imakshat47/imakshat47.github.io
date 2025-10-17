@@ -1,8 +1,8 @@
 {
-  "Monday":    { "date": "2025-10-13", "stars": 46, "followers": 11, "public_repos": 22, "commits_this_year": 310 },
-  "Tuesday":   { "date": "2025-10-14", "stars": 47, "followers": 11, "public_repos": 22, "commits_this_year": 312 },
-  "Wednesday": { "date": "2025-10-15", "stars": 47, "followers": 12, "public_repos": 23, "commits_this_year": 318 },
-  "Thursday":  { "date": "2025-10-16", "stars": 48, "followers": 12, "public_repos": 23, "commits_this_year": 322 },
-  "Friday":    { "date": "2025-10-17", "stars": 48, "followers": 12, "public_repos": 23, "commits_this_year": 325 }
-  
+  "Monday":    { "date": "2025-10-13", "commits_this_year": 310 },
+  "Tuesday":   { "date": "2025-10-14", "commits_this_year": 312 },
+  "Wednesday": { "date": "2025-10-15", "commits_this_year": 318 },
+  "Thursday":  { "date": "2025-10-16", "commits_this_year": 322 },
+  "Friday":    { "date": "2025-10-17", "commits_this_year": 325 }
+
 }

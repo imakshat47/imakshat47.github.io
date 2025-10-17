@@ -493,88 +493,6 @@
         </div>
     </section>
 
-    <!-- Github Section -->
-    <section id="contact" class="section contact-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Stats Goes here </h2>
-                <p class="section-subtitle">...</p>
-            </div>
-
-            <div class="contact-content">
-                <!-- GITHUB STATS -->
-                <section class="container fade-in">
-                    <h2>📊 Live GitHub Stats</h2>
-                    <div id="stats">Loading GitHub stats...</div>
-                </section>
-
-                <!-- VISITOR COUNTER -->
-                <section class="container fade-in">
-                    <h2>👥 Visitors</h2>
-                    <div id="visitors">Loading visitor count...</div>
-                </section>
-
-                <section id="github-stats" class="container fade-in">
-                    <h2>📈 GitHub Stats Trends</h2>
-                    <canvas id="statsChart" width="600" height="300"></canvas>
-                </section>
-                </main>
-
-                <!-- Chart.js -->
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                <script>
-                    async function loadStats() {
-                        try {
-                            const res = await fetch("api/stats-history.json");
-                            const data = await res.json();
-                            const ctx = document.getElementById("statsChart").getContext("2d");
-                            new Chart(ctx, {
-                                type: "line",
-                                data: {
-                                    labels: data.map(d => d.date),
-                                    datasets: [
-                                        { label: "⭐ Stars", data: data.map(d => d.stars), borderColor: "gold" },
-                                        { label: "👥 Followers", data: data.map(d => d.followers), borderColor: "blue" },
-                                        { label: "📦 Public Repos", data: data.map(d => d.public_repos), borderColor: "green" },
-                                        { label: "🔥 Commits", data: data.map(d => d.commits_this_year), borderColor: "red" }
-                                    ]
-                                }
-                            });
-                        } catch { console.log("Stats error"); }
-                    }
-                    loadStats();
-
-                    async function fetchGitHubStats() {
-                        try {
-                            const res = await fetch("https://imakshat47.github.io/api/stats.json");
-                            const data = await res.json();
-                            let html = "";
-                            function add(label, val) { if (val && val != 0) html += `<div class='stat-item'>${label}: <b>${val}</b></div>`; }
-                            add("📦 Public Repos", data.public_repos);
-                            add("⭐ Stars", data.stars);
-                            add("👥 Followers", data.followers);
-                            add("➡️ Following", data.following);
-                            add("🔥 Commits This Year", data.commits_this_year);
-                            add("📍 Location", data.location);
-                            document.getElementById("stats").innerHTML = html || "No stats found.";
-                        } catch { document.getElementById("stats").innerText = "⚠️ Error fetching stats."; }
-                    }
-                    fetchGitHubStats();
-
-                    async function fetchVisitors() {
-                        try {
-                            const res = await fetch("https://imakshat47.github.io/api/visitors.json");
-                            const data = await res.json();
-                            document.getElementById("visitors").innerText = `👤 Visitors: ${data.count} | Last Visit: ${data.last_visit}`;
-                        } catch { document.getElementById("visitors").innerText = "⚠️ Error fetching visitors."; }
-                    }
-                    fetchVisitors();
-                </script>
-
-            </div>
-        </div>
-    </section>
-
    <!-- =========================
 📊 GitHub Analytics Section
 ========================= -->
@@ -587,22 +505,24 @@
 
     <div class="contact-content">
       <!-- LIVE GITHUB STATS -->
-      <section class="container fade-in">
-        <h3>⚡ Live GitHub Overview</h3>
+      <section class="project-card deployed-project fade-in visible">
+        <h3 class="project-title">⚡ Live GitHub Overview</h3>
         <div id="stats" class="stats-grid">Loading stats...</div>
       </section>
 
+        <!-- CHART SECTION -->
+      <section id="github-stats" class="project-card deployed-project fade-in visible">
+        <h3 class="project-title">📊 7-Day Growth Trends</h3>
+        <canvas id="statsChart" height="320"></canvas>
+      </section>
+
       <!-- VISITOR COUNTER -->
-      <section class="container fade-in">
-        <h3>👥 Visitor Insights</h3>
+      <section class="project-card deployed-project fade-in visible">
+        <h3 class="project-title">👥 Visitor Insights</h3>
         <div id="visitors" class="visitors-card">Loading visitor data...</div>
       </section>
 
-      <!-- CHART SECTION -->
-      <section id="github-stats" class="container fade-in">
-        <h3>📊 7-Day Growth Trends</h3>
-        <canvas id="statsChart" height="320"></canvas>
-      </section>
+    
     </div>
   </div>
 </section>
@@ -627,7 +547,7 @@
     try {
       const res = await fetch("https://imakshat47.github.io/api/stats.json");
       const data = await res.json();
-
+console.log(data)
       document.getElementById("stats").innerHTML = `
         ${createStatItem("Public Repos", data.public_repos, "📦")}
         ${createStatItem("Stars", data.stars, "⭐")}
@@ -647,6 +567,7 @@
     try {
       const res = await fetch("https://imakshat47.github.io/api/visitors.json");
       const data = await res.json();
+      console.log(data)
       document.getElementById("visitors").innerHTML = `
         👤 <b>${data.count}</b> total visitors<br>
         ⏱️ Last Visit: <span>${new Date(data.last_visit).toLocaleString()}</span>

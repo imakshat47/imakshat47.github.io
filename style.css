@@ -2241,7 +2241,7 @@ select.form-control {
     border-radius: 12px;
     padding: 1rem;
     text-align: left;
-    color: #e2e8f0;
+    color: #fff;
     backdrop-filter: blur(8px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
@@ -2263,6 +2263,6 @@ select.form-control {
     background: rgba(15, 23, 42, 0.7);
     padding: 1rem;
     border-radius: 10px;
-    color: #e2e8f0;
+    color: #fff;
     border: 1px solid rgba(59, 130, 246, 0.25);
   }

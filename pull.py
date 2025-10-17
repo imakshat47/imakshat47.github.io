@@ -101,9 +101,9 @@ weekday = datetime.now(UTC).strftime("%A")
 # Save snapshot under weekday key
 history[weekday] = {
     "date": datetime.now(UTC).strftime("%Y-%m-%d"),
-    "stars": stats["stars"],
-    "followers": stats["followers"],
-    "public_repos": stats["public_repos"],
+    # "stars": stats["stars"],
+    # "followers": stats["followers"],
+    # "public_repos": stats["public_repos"],
     "commits_this_year": stats["commits_this_year"],
 }
 
