@@ -1,84 +1,62 @@
-import os
-import json
-import pathlib
+import requests, json, os, pathlib
 from datetime import datetime, UTC
-import requests
 
 # ===========================================
 # Setup
 # ===========================================
-# GitHub token (for higher rate limits and commit stats)
 token = os.getenv("GH_TOKEN") or os.getenv("GITHUB_TOKEN")
 headers = {"Authorization": f"Bearer {token}"} if token else {}
 
-# Directory setup
 api_dir = pathlib.Path("api")
 api_dir.mkdir(exist_ok=True)
-
-resume_dir = pathlib.Path("resume")
-resume_dir.mkdir(exist_ok=True)
-
 print_out_msg = ""
-
 # ===========================================
 # 1. Visitor Counter
 # ===========================================
 visitor_file = api_dir / "visitors.json"
 visitors = {"count": 0, "last_visit": None}
 
-# Read existing visitor data safely
-if visitor_file.exists():
+if visitor_file.exists() and visitor_file.stat().st_size > 0:
     try:
         with open(visitor_file) as vf:
             visitors = json.load(vf)
     except json.JSONDecodeError:
         visitors = {"count": 0, "last_visit": None}
 
-# Update visitor stats
 visitors["count"] = visitors.get("count", 0) + 1
 visitors["last_visit"] = datetime.now(UTC).isoformat()
 
-# Save back to JSON
 with open(visitor_file, "w") as f:
     json.dump(visitors, f, indent=2)
     print_out_msg += "Visitor "
 
 # ===========================================
-# 2. GitHub Stats Snapshot (User + Repo Data)
+# 2. GitHub Stats Snapshot
 # ===========================================
-user_resp = requests.get("https://api.github.com/users/imakshat47", headers=headers)
-repos_resp = requests.get("https://api.github.com/users/imakshat47/repos?per_page=100", headers=headers)
-
-user = user_resp.json()
-repos = repos_resp.json() if isinstance(repos_resp.json(), list) else []
-
-# Aggregate stars
+user = requests.get("https://api.github.com/users/imakshat47", headers=headers).json()
+repos = requests.get("https://api.github.com/users/imakshat47/repos?per_page=100", headers=headers).json()
 stars = sum(r.get("stargazers_count", 0) for r in repos if isinstance(r, dict))
 
-# GraphQL query for commit count (if authenticated)
-commits = 0
-if token:
-    query = """
-    {
-      viewer {
-        contributionsCollection {
-          contributionCalendar {
-            totalContributions
-          }
-        }
+query = """
+{
+  viewer {
+    contributionsCollection {
+      contributionCalendar {
+        totalContributions
       }
     }
-    """
+  }
+}
+"""
+commits = 0
+if token:  # GraphQL requires authentication
+    graphql = requests.post("https://api.github.com/graphql", json={"query": query}, headers=headers).json()
     try:
-        graphql = requests.post(
-            "https://api.github.com/graphql", json={"query": query}, headers=headers
-        ).json()
         commits = graphql["data"]["viewer"]["contributionsCollection"]["contributionCalendar"]["totalContributions"]
     except Exception:
         commits = 0
 
-# Base stats dictionary
-base_stats = {
+stats = {
     "public_repos": user.get("public_repos", 0),
     "stars": stars,
     "followers": user.get("followers", 0),
@@ -88,51 +66,30 @@ base_stats = {
     "company": user.get("company", ""),
     "blog": user.get("blog", ""),
     "bio": user.get("bio", ""),
-    "last_updated": datetime.now(UTC).isoformat(),
+    "last_updated": datetime.now(UTC).isoformat()
 }
 
-# ===========================================
-# 3. Weekly Stats (7-day Rolling Trend)
-# ===========================================
-# Use weekdays as keys (0=Mon → 6=Sun)
-weekday_key = datetime.now(UTC).strftime("%A")  # e.g., "Friday"
-stats_file = api_dir / "stats.json"
-
-# Load existing weekly trend (if any)
-if stats_file.exists():
-    try:
-        with open(stats_file) as sf:
-            weekly_stats = json.load(sf)
-    except json.JSONDecodeError:
-        weekly_stats = {}
-else:
-    weekly_stats = {}
-
-# Overwrite today's stats (7-day rolling trend)
-weekly_stats[weekday_key] = base_stats
-
-# Write updated stats to file
-with open(stats_file, "w") as f:
-    json.dump(weekly_stats, f, indent=2)
+with open(api_dir / "stats.json", "w") as f:
+    json.dump(stats, f, indent=2)
     print_out_msg += "Stats "
 
 # ===========================================
-# 4. Append to Stats History (Daily Archive)
+# 3. Append to Stats History
 # ===========================================
 history_file = api_dir / "stats-history.json"
 history = []
 
-if history_file.exists():
+if history_file.exists() and history_file.stat().st_size > 0:
     try:
         with open(history_file) as hf:
             history = json.load(hf)
     except json.JSONDecodeError:
         history = []
 
-snapshot = base_stats.copy()
+snapshot = stats.copy()
 snapshot["date"] = datetime.now(UTC).strftime("%Y-%m-%d")
 
-# Avoid duplicate entries for the same date
+# Avoid duplicate entries for same date
 if not any(entry.get("date") == snapshot["date"] for entry in history):
     history.append(snapshot)
 
@@ -141,21 +98,22 @@ with open(history_file, "w") as f:
     print_out_msg += "History "
 
 # ===========================================
-# 5. Auto-generate Resume List
+# 4. Resume Auto-Update
 # ===========================================
-resume_list = []
+resume_dir = pathlib.Path("resume")
+resume_dir.mkdir(exist_ok=True)
+resume_list_file = resume_dir / "resume-list.json"
+
+resumes = []
 for file in sorted(resume_dir.glob("*.pdf")):
-    resume_list.append({
+    resumes.append({
         "name": file.stem.replace("_", " ").title(),
         "file": file.name,
         "last_modified": datetime.fromtimestamp(file.stat().st_mtime, UTC).isoformat()
     })
 
-with open(resume_dir / "resume-list.json", "w") as f:
-    json.dump(resume_list, f, indent=2)
+with open(resume_list_file, "w") as f:
+    json.dump(resumes, f, indent=2)
     print_out_msg += "Resume "
 
-# ===========================================
-# Final Log
-# ===========================================
-print(f"✅ {print_out_msg.strip()} updated successfully!")
+print(f"✅ {print_out_msg} list updated!")

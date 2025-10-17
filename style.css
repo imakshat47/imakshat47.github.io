@@ -773,7 +773,7 @@ select.form-control {
 
 /* Code Animation Container */
 .code-animation-container {
-  position: fixed;
+  /* position: fixed; */
   top: 20px;
   right: 20px;
   z-index: 100;
