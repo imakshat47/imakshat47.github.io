@@ -1,12 +1,13 @@
 {
-  "public_repos": 23,
-  "stars": 48,
-  "followers": 12,
-  "following": 8,
-  "commits_this_year": 325,
+  "public_repos": 72,
+  "stars": 8,
+  "followers": 1,
+  "following": 0,
+  "commits_this_year": 10391,
+  "commits_today": 8,
   "location": "New Delhi, India",
-  "company": "NIT Delhi",
-  "blog": "https://imakshat47.github.io",
-  "bio": "AI/ML Engineer | Healthcare AI Researcher",
-  "last_updated": "2025-10-17T17:03:29.421Z"
+  "company": null,
+  "blog": "imakshat47.github.io",
+  "bio": "\ud83d\udc68\u200d\ud83d\udcbb Code, coffee & cloud \u2601\ufe0f | Breaking data silos, building AI agents \ud83e\udd16 | M.Tech @ NIT Delhi | Ex-Accenture | Forever debugging, forever learning \ud83d\ude80",
+  "last_updated": "2025-10-17T18:10:48.573074+00:00"
 }
